@@ -1,4 +1,12 @@
+import { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Raikan Hisham & Fatin",
+  description:
+    "Dengan penuh kesyukuran dan kegembiraan, kami menjemput tuan/puan untuk meraikan perkahwinan Hisham dan Fatin.",
+  icons: "/icons/websitelogo.svg",
+};
 
 export default function HomeLayout({
   children,
