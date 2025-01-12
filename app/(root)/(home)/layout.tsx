@@ -4,10 +4,10 @@ import React, { ReactNode } from "react";
 // defining the props type for better clarity and reusability
 type HomeLayoutProps = {
   children: ReactNode;
-  showActionBar: boolean;
+  showActionBar?: boolean;
 };
 
-const HomeLayout = ({ children, showActionBar }: HomeLayoutProps) => {
+const HomeLayout = ({ children, showActionBar = false }: HomeLayoutProps) => {
   return (
     <main className="flex flex-col min-h-screen">
       <section className="flex-1">
