@@ -11,6 +11,28 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    rules: {
+      // Default rules
+      "no-console": ["warn", { allow: ["warn", "error"] }], // Allow console warnings/errors in dev
+
+      // Development-specific rules
+      ...(process.env.NODE_ENV === "development"
+        ? {
+            "no-debugger": "warn",
+            "react/jsx-uses-react": "off",
+          }
+        : {}),
+
+      // Production-specific rules
+      ...(process.env.NODE_ENV === "production"
+        ? {
+            "no-console": "off", // Disable console warnings/errors in production
+            "react/prop-types": "off", // Disable prop-types validation if not needed in prod
+          }
+        : {}),
+    },
+  },
 ];
 
 export default eslintConfig;
