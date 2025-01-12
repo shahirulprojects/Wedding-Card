@@ -1,13 +1,14 @@
 import Actionbar from "@/components/actionbar";
-import React, { ReactNode } from "react";
+import React from "react";
 
-// defining the props type for better clarity and reusability
-type HomeLayoutProps = {
-  children: ReactNode;
+// layout component for the home section
+export default function HomeLayout({
+  children,
+  showActionBar = false,
+}: {
+  children: React.ReactNode;
   showActionBar?: boolean;
-};
-
-const HomeLayout = ({ children, showActionBar = false }: HomeLayoutProps) => {
+}) {
   return (
     <main className="flex flex-col min-h-screen">
       <section className="flex-1">
@@ -16,6 +17,4 @@ const HomeLayout = ({ children, showActionBar = false }: HomeLayoutProps) => {
       {showActionBar && <Actionbar />}
     </main>
   );
-};
-
-export default HomeLayout;
+}
