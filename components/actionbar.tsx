@@ -115,7 +115,7 @@ const Actionbar = () => {
             </PopoverTrigger>
 
             {item.content && (
-              <PopoverContent className="mb-6 ml-2 w-full">
+              <PopoverContent className="max-sm:ml-2 max-sm:mr-2 mb-6 w-full max-sm:min-w-[375px]">
                 <h1 className="text-center font-bold mb-4 text-main-2">
                   {item.label.toUpperCase()}
                 </h1>
@@ -253,11 +253,16 @@ const Actionbar = () => {
                       <div className="flex flex-col gap-4">
                         {!showRSVPForm ? (
                           <>
-                            <p className="text-center mb-4">
-                              Adakah anda akan hadir ke majlis perkahwinan ini?
+                            <p className="text-center mb-2">
+                              Adakah anda dapat hadir ke{" "}
+                              <br className="md:hidden" />
+                              majlis perkahwinan ini?
                             </p>
                             <div className="flex justify-center gap-4">
-                              <Button onClick={() => setShowRSVPForm(true)}>
+                              <Button
+                                variant="primary"
+                                onClick={() => setShowRSVPForm(true)}
+                              >
                                 Ya
                               </Button>
                               <Button
@@ -315,7 +320,9 @@ const Actionbar = () => {
                                 <Plus className="h-4 w-4" />
                               </Button>
                             </div>
-                            <Button type="submit">Hantar</Button>
+                            <Button variant="primary" type="submit">
+                              Hantar
+                            </Button>
                           </form>
                         )}
                       </div>
@@ -361,10 +368,15 @@ const Actionbar = () => {
                               width={20}
                               height={20}
                             />
-                            {image ? image.name : "Muat naik gambar"}
+                            {/* if have image the placeholder will be the image name, if not it will be Muat naik gambar */}
+                            {image
+                              ? image.name
+                              : "Gambar kenangan manis bersama pengantin"}
                           </Button>
                         </div>
-                        <Button type="submit">Hantar</Button>
+                        <Button variant="primary" type="submit">
+                          Hantar
+                        </Button>
                       </form>
                     )}
                   </div>

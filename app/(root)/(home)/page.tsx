@@ -25,7 +25,7 @@ const Home = () => {
           }`}
         >
           <div className="bg-white text-black font-bold h-screen w-full flex items-center justify-center">
-            Perkahwinan Hisham Dan Fatin
+            Perkahwinan Hisham dan Fatin
           </div>
         </div>
 
@@ -37,9 +37,7 @@ const Home = () => {
         >
           <button
             onClick={handleOpen}
-            className="px-8 py-3 bg-white text-slate-900 rounded-lg font-semibold 
-                       hover:bg-opacity-90 transition-colors duration-300
-                       shadow-lg text-lg"
+            className="px-8 py-3 text-white  font-semibold font-serif text-3xl"
           >
             Buka
           </button>
