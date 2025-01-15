@@ -45,7 +45,7 @@ export const actionBar: ActionBarItem[] = [
     imgUrl: "/icons/lovelocation.svg",
     content: [
       {
-        name: "123, Jalan ABC, Taman ABC, Daerah ABC, Negeri ABC",
+        name: "123, Jalan ABC, Taman ABC,\nDaerah ABC, Negeri ABC",
         googleMapsLink: "https://www.google.com/maps",
         wazeLink: "https://www.waze.com/en-GB/live-map/",
       },

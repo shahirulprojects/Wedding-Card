@@ -1,21 +1,33 @@
 "use client";
 import { actionBar, ContactContent, LocationContent } from "@/constants";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { CircleCheck } from "lucide-react";
 
 const Actionbar = () => {
+  // state to manage copy feedback
+  const [copySuccess, setCopySuccess] = useState(false);
+
+  // helper function to copy text to clipboard
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopySuccess(true); // feedback message
+      setTimeout(() => setCopySuccess(false), 2000); // clear message after 2 seconds
+    });
+  };
+
   // helper function to check if item has location links
-  const hasLocationLinks = (item: ContactContent | LocationContent) => {
+  const hasLocationLinks = (item: LocationContent) => {
     return "googleMapsLink" in item || "wazeLink" in item;
   };
 
   // helper function to check if item has contact links
-  const hasContactLinks = (item: ContactContent | LocationContent) => {
+  const hasContactLinks = (item: ContactContent) => {
     return "whatsappLink" in item || "phoneLink" in item;
   };
 
@@ -47,7 +59,42 @@ const Actionbar = () => {
                     className="mb-4 flex items-center justify-between gap-4"
                   >
                     <div className="flex flex-col mb-2">
-                      <p className="font-medium">{contentItem.name}</p>
+                      {/* Name and copy button container */}
+                      <div
+                        className={`${
+                          "googleMapsLink" in contentItem
+                            ? "flex items-center gap-2"
+                            : "flex flex-col"
+                        }`}
+                      >
+                        {/* Copy button only for LocationContent */}
+                        {"googleMapsLink" in contentItem && (
+                          <button
+                            onClick={() => copyToClipboard(contentItem.name)}
+                            className="flex-shrink-0"
+                          >
+                            {copySuccess ? (
+                              // show CircleCheck icon when copy is successful
+                              <CircleCheck className="text-green-500" />
+                            ) : (
+                              // show copy icon when not copied
+                              <Image
+                                src="/icons/copy.svg"
+                                alt="copy"
+                                width={20}
+                                height={20}
+                              />
+                            )}
+                          </button>
+                        )}
+                        <div className="flex flex-col">
+                          {contentItem.name.split("\n").map((line, i) => (
+                            <p key={i} className="font-medium">
+                              {line}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
                       {/* only show title if it exists */}
                       {"title" in contentItem && contentItem.title && (
                         <p className="text-gray-400 italic">
@@ -121,8 +168,8 @@ const Actionbar = () => {
                             <Image
                               src="/icons/waze.svg"
                               alt="Waze"
-                              width={30}
-                              height={30}
+                              width={40}
+                              height={40}
                             />
                           </a>
                         )}
