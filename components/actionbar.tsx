@@ -1,5 +1,5 @@
 "use client";
-import { actionBar } from "@/constants";
+import { actionBar, ContactContent, LocationContent } from "@/constants";
 import Image from "next/image";
 import React from "react";
 import {
@@ -10,13 +10,13 @@ import {
 
 const Actionbar = () => {
   // helper function to check if item has location links
-  const hasLocationLinks = (item: any) => {
-    return item.googleMapsLink || item.wazeLink;
+  const hasLocationLinks = (item: ContactContent | LocationContent) => {
+    return "googleMapsLink" in item || "wazeLink" in item;
   };
 
   // helper function to check if item has contact links
-  const hasContactLinks = (item: any) => {
-    return item.whatsappLink || item.phoneLink;
+  const hasContactLinks = (item: ContactContent | LocationContent) => {
+    return "whatsappLink" in item || "phoneLink" in item;
   };
 
   return (

@@ -1,5 +1,5 @@
 // define types for better type safety
-type ContactContent = {
+export type ContactContent = {
   name: string;
   title?: string;
   number?: string;
@@ -7,13 +7,13 @@ type ContactContent = {
   phoneLink?: string;
 };
 
-type LocationContent = {
+export type LocationContent = {
   name: string;
   googleMapsLink?: string;
   wazeLink?: string;
 };
 
-type ActionBarItem = {
+export type ActionBarItem = {
   label: string;
   imgUrl: string;
   content?: (ContactContent | LocationContent)[];
