@@ -13,10 +13,20 @@ export type LocationContent = {
   wazeLink?: string;
 };
 
+export type RSVPContent = {
+  name: string;
+  type: "rsvp";
+};
+
+export type SpeechContent = {
+  name: string;
+  type: "speech";
+};
+
 export type ActionBarItem = {
   label: string;
   imgUrl: string;
-  content?: (ContactContent | LocationContent)[];
+  content?: (ContactContent | LocationContent | RSVPContent | SpeechContent)[];
 };
 
 export const actionBar: ActionBarItem[] = [
@@ -54,9 +64,21 @@ export const actionBar: ActionBarItem[] = [
   {
     label: "RSVP",
     imgUrl: "/icons/lovecalendar.svg",
+    content: [
+      {
+        name: "RSVP Form",
+        type: "rsvp",
+      },
+    ],
   },
   {
     label: "Ucapan",
     imgUrl: "/icons/lovespeech.svg",
+    content: [
+      {
+        name: "Speech Form",
+        type: "speech",
+      },
+    ],
   },
 ];
