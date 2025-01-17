@@ -1,6 +1,10 @@
 "use client";
 import HomeLayout from "@/app/(root)/(home)/layout";
 import Actionbar from "@/components/actionbar";
+import DetailSection from "@/components/detailsection";
+import LandingSection from "@/components/landingsection";
+import SpeechSection from "@/components/speechsection";
+import TentativeSection from "@/components/tentativesection";
 import React, { useState } from "react";
 
 const Home = () => {
@@ -14,24 +18,27 @@ const Home = () => {
 
   return (
     <>
-      <div className="relative h-screen w-full overflow-hidden">
+      <div className="relative w-full">
         {/* blurred background that's always visible */}
-        <div className="absolute inset-0 bg-main-2 backdrop-blur-xl" />
+        <div className="fixed inset-0 bg-main-2 backdrop-blur-xl" />
 
         {/* content container with transition */}
         <div
-          className={`relative h-full w-full transition-all duration-700 ease-in-out ${
+          className={`relative w-full transition-all duration-700 ease-in-out ${
             isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >
-          <div className="bg-white text-black font-bold h-screen w-full flex items-center justify-center">
-            Perkahwinan Hisham dan Fatin
+          <div className="relative">
+            <LandingSection />
+            <DetailSection />
+            <TentativeSection />
+            <SpeechSection />
           </div>
         </div>
 
         {/* button container with transition */}
         <div
-          className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 ${
+          className={`fixed inset-0 flex items-center justify-center transition-opacity duration-700 ${
             isOpen ? "opacity-0 pointer-events-none" : "opacity-100"
           }`}
         >
