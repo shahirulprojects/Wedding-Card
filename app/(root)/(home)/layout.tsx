@@ -5,7 +5,14 @@ export const metadata: Metadata = {
   title: "Raikan Hisham & Fatin",
   description:
     "Dengan penuh kesyukuran dan kegembiraan, kami menjemput tuan/puan untuk meraikan perkahwinan Hisham dan Fatin.",
-  icons: "/icons/websitelogo.svg",
+  icons: {
+    icon: [
+      {
+        url: "/icons/websitelogo.svg",
+        type: "image/svg+xml",
+      },
+    ],
+  },
 };
 
 export default function HomeLayout({
