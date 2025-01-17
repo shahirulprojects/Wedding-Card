@@ -115,7 +115,16 @@ const Actionbar = () => {
             </PopoverTrigger>
 
             {item.content && (
-              <PopoverContent className="max-sm:ml-2 max-sm:mr-2 mb-6 w-full max-sm:min-w-[375px]">
+              <PopoverContent
+                className={`max-sm:ml-2 mb-6 w-full max-sm:min-w-[375px]${
+                  // if the first content item is RSVP or Speech, use mr-4, otherwise use mr-[-8px]
+                  item.content &&
+                  (isRSVPContent(item.content[0]) ||
+                    isSpeechContent(item.content[0]))
+                    ? "max-sm:mr-[15px]"
+                    : "max-sm:mr-[-8px]"
+                }`}
+              >
                 <h1 className="text-center font-bold mb-4 text-main-2">
                   {item.label.toUpperCase()}
                 </h1>
