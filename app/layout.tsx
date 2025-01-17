@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Perkahwinan Hisham & Fatin",
   description: "Jemputan Ke Perkahwinan Hisham & Fatin",
-  icons: "/icons/websitelogo.svg",
+  icons: "/public/icons/websitelogo.svg",
 };
 
 export default function RootLayout({
