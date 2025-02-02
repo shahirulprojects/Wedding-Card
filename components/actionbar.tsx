@@ -69,6 +69,7 @@ const Actionbar = () => {
         response === "yes"
           ? "Terima kasih atas pengesahan kehadiran anda."
           : "Terima kasih atas maklum balas anda.",
+      variant: "default",
     });
     setShowRSVPForm(false);
     setName("");
@@ -164,7 +165,7 @@ const Actionbar = () => {
                   backgroundColor: themeColors.container,
                   borderColor: themeColors.actionBar.border,
                 }}
-                className="mb-[-30px] w-full max-w-sm rounded-2xl shadow-xl border-2"
+                className="mb-[30px] w-full max-w-sm rounded-2xl shadow-xl border-2"
               >
                 <h1
                   style={{ color: themeColors.text.primary }}
