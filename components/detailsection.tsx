@@ -91,10 +91,10 @@ END:VCALENDAR`;
   return (
     <div
       style={{ backgroundColor: themeColors.background }}
-      className="mt-[27px] min-h-screen w-full flex items-center justify-center py-20 px-4 relative"
+      className="mt-[27px] min-h-screen w-full flex items-center justify-center py-20 px-4 relative overflow-hidden"
     >
       {/* Corner Flowers */}
-      <div className="absolute top-10 -right-10 w-32 h-32">
+      <div className="absolute top-10 right-0 w-32 h-32">
         <Image
           src="\icons\flowercorner.svg"
           alt="corner flower"
@@ -102,7 +102,7 @@ END:VCALENDAR`;
           height={60}
         />
       </div>
-      <div className="absolute top-10 -left-10 w-32 h-32 transform -scale-x-100">
+      <div className="absolute top-10 left-0 w-32 h-32 transform -scale-x-100">
         <Image
           src="\icons\flowercorner.svg"
           alt="corner flower"

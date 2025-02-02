@@ -41,23 +41,25 @@ const TentativeSection = () => {
   return (
     <div
       style={{ backgroundColor: themeColors.background }}
-      className="min-h-screen flex w-full items-center justify-center py-20 px-4 relative"
+      className="min-h-screen flex w-full items-center justify-center py-20 px-4 relative overflow-hidden"
     >
       {/* Corner Flowers */}
-      <div className="absolute top-[70px] -right-10 w-32 h-32">
+      <div className="absolute top-[70px] right-0 w-32 h-32">
         <Image
           src="\icons\flowercorner.svg"
           alt="corner flower"
           width={60}
           height={60}
+          className="ml-3"
         />
       </div>
-      <div className="absolute top-[70px] -left-10 w-32 h-32 transform -scale-x-100">
+      <div className="absolute top-[70px] left-0 w-32 h-32 transform -scale-x-100">
         <Image
           src="\icons\flowercorner.svg"
           alt="corner flower"
           width={60}
           height={60}
+          className="ml-5"
         />
       </div>
       {/* <div className="absolute bottom-0 right-0 w-32 h-32 transform rotate-90">

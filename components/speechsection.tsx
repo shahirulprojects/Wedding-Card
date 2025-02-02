@@ -9,6 +9,21 @@ import {
 } from "@/components/ui/carousel";
 import { guestMessages, themeColors } from "@/constants";
 import Image from "next/image";
+import Autoplay from "embla-carousel-autoplay";
+
+export function Example() {
+  return (
+    <Carousel
+      plugins={[
+        Autoplay({
+          delay: 1000,
+        }),
+      ]}
+    >
+      // ...
+    </Carousel>
+  );
+}
 
 const SpeechSection = () => {
   // Function to trigger the speech form in action bar
@@ -21,7 +36,7 @@ const SpeechSection = () => {
   return (
     <div
       style={{ backgroundColor: themeColors.background }}
-      className="min-h-screen flex w-full items-center justify-center py-20 px-4 mt-[-100px] mb-10"
+      className="min-h-screen flex w-full items-center justify-center py-20 px-4 relative overflow-hidden"
     >
       <div className="max-w-4xl w-full">
         <motion.div
@@ -59,6 +74,11 @@ const SpeechSection = () => {
             align: "start",
             loop: true,
           }}
+          plugins={[
+            Autoplay({
+              delay: 2000,
+            }),
+          ]}
           className="w-full"
         >
           <CarouselContent className="-ml-2 md:-ml-4">
