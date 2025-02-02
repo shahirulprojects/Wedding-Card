@@ -43,7 +43,7 @@ const TentativeSection = () => {
       style={{ backgroundColor: themeColors.background }}
       className="min-h-screen flex w-full items-center justify-center py-20 px-4 relative overflow-hidden"
     >
-      {/* Corner Flowers */}
+      {/* Corner Flowers
       <div className="absolute top-[70px] right-0 w-32 h-32">
         <Image
           src="\icons\flowercorner.svg"
@@ -61,7 +61,7 @@ const TentativeSection = () => {
           height={60}
           className="ml-5"
         />
-      </div>
+      </div> */}
       {/* <div className="absolute bottom-0 right-0 w-32 h-32 transform rotate-90">
         <Image
           src="\icons\flowercorner.svg"

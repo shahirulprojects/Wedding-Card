@@ -36,7 +36,7 @@ const SpeechSection = () => {
   return (
     <div
       style={{ backgroundColor: themeColors.background }}
-      className="min-h-screen flex w-full items-center justify-center py-20 px-4 relative overflow-hidden"
+      className="mb-10 min-h-screen flex w-full items-center justify-center py-20 px-4 relative overflow-hidden"
     >
       <div className="max-w-4xl w-full">
         <motion.div
