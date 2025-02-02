@@ -5,28 +5,129 @@ import DetailSection from "@/components/detailsection";
 import LandingSection from "@/components/landingsection";
 import SpeechSection from "@/components/speechsection";
 import TentativeSection from "@/components/tentativesection";
-import React, { useState } from "react";
+import { themeColors } from "@/constants";
+import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from "react";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showActionBar, setShowActionBar] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  // Handle scroll to show/hide action bar
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setHasScrolled(scrollPosition > 100); // Show after 100px scroll
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleOpen = () => {
     setIsOpen(true);
-    setShowActionBar(true);
+    // Action bar will show only after scrolling
   };
 
   return (
     <>
       <div className="relative w-full">
-        {/* blurred background that's always visible */}
-        <div className="fixed inset-0 bg-main-2 backdrop-blur-xl" />
-
-        {/* content container with transition */}
+        {/* Background with pattern */}
         <div
-          className={`relative w-full transition-all duration-700 ease-in-out ${
-            isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
+          style={{ backgroundColor: themeColors.background }}
+          className="fixed inset-0 overflow-hidden"
+        >
+          {/* Decorative background patterns */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/floral-pattern.png')] bg-repeat opacity-30" />
+          </div>
+          {/* Animated gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1B4332]/50 to-[#1B4332] animate-gradient" />
+        </div>
+
+        {/* Door animation container */}
+        <AnimatePresence>
+          {!isOpen && (
+            <motion.div
+              className="fixed inset-0 flex items-center justify-center z-50"
+              initial={false}
+            >
+              {/* Left door */}
+              <motion.div
+                initial={{ x: 0 }}
+                animate={{ x: isOpen ? "-100%" : 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
+                style={{ backgroundColor: themeColors.primary }}
+                className="absolute left-0 w-1/2 h-full shadow-2xl"
+              >
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-32 bg-yellow-500/50 blur-sm" />
+              </motion.div>
+
+              {/* Right door */}
+              <motion.div
+                initial={{ x: 0 }}
+                animate={{ x: isOpen ? "100%" : 0 }}
+                exit={{ x: "100%" }}
+                transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
+                style={{ backgroundColor: themeColors.primary }}
+                className="absolute right-0 w-1/2 h-full shadow-2xl"
+              >
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-32 bg-yellow-500/50 blur-sm" />
+              </motion.div>
+
+              {/* Center content */}
+              <motion.div
+                initial={{ opacity: 1, scale: 1 }}
+                animate={{ opacity: isOpen ? 0 : 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.5 }}
+                className="relative z-10 text-center"
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="mb-8"
+                >
+                  <h1
+                    style={{ color: themeColors.yellow }}
+                    className="font-script text-5xl mb-4"
+                  >
+                    Walimatul Urus
+                  </h1>
+                  <p className="text-white/90 text-xl font-serif">
+                    Undangan Istimewa
+                  </p>
+                </motion.div>
+
+                <motion.button
+                  onClick={handleOpen}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group relative px-8 py-4 overflow-hidden rounded-full"
+                >
+                  {/* Button background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/80 to-yellow-600/80 transition-transform group-hover:scale-105" />
+                  {/* Button shine effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-transparent via-white to-transparent -skew-x-12 group-hover:animate-shine" />
+                  {/* Button text */}
+                  <span className="relative text-white font-serif text-xl tracking-wider">
+                    Buka Undangan
+                  </span>
+                </motion.button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Main content */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isOpen ? 1 : 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="relative w-full"
         >
           <div className="relative">
             <LandingSection />
@@ -34,23 +135,11 @@ const Home = () => {
             <TentativeSection />
             <SpeechSection />
           </div>
-        </div>
-
-        {/* button container with transition */}
-        <div
-          className={`fixed inset-0 flex items-center justify-center transition-opacity duration-700 ${
-            isOpen ? "opacity-0 pointer-events-none" : "opacity-100"
-          }`}
-        >
-          <button
-            onClick={handleOpen}
-            className="px-8 py-3 text-white  font-semibold font-serif text-3xl"
-          >
-            Buka
-          </button>
-        </div>
+        </motion.div>
       </div>
-      {showActionBar && <Actionbar />}
+
+      {/* Action bar with scroll-based visibility */}
+      {isOpen && hasScrolled && <Actionbar />}
     </>
   );
 };

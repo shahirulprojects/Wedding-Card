@@ -5,6 +5,7 @@ import {
   LocationContent,
   RSVPContent,
   SpeechContent,
+  themeColors,
 } from "@/constants";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -18,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import confetti from "canvas-confetti";
 
 const Actionbar = () => {
   // state to manage copy feedback and forms
@@ -74,12 +76,22 @@ const Actionbar = () => {
     setOpenPopoverIndex(null);
   };
 
-  // handle speech form submission
+  // Function to trigger confetti
+  const triggerConfetti = () => {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
+  };
+
+  // handle speech form submission with confetti
   const handleSpeechSubmit = () => {
     toast({
       title: "Terima kasih!",
       description: "Terima kasih atas ucapan anda.",
     });
+    triggerConfetti();
     setSpeechName("");
     setSpeech("");
     setImage(null);
@@ -93,9 +105,29 @@ const Actionbar = () => {
     }
   };
 
+  // Function to open speech form
+  const openSpeechForm = () => {
+    const speechIndex = actionBar.findIndex(
+      (item) => item.label.toLowerCase() === "ucapan"
+    );
+    if (speechIndex !== -1) {
+      setOpenPopoverIndex(speechIndex);
+    }
+  };
+
+  // Expose the function globally
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      (window as any).openSpeechForm = openSpeechForm;
+    }
+  }, []);
+
   return (
-    <div className="bg-main-1 border-t border-gray-300 fixed bottom-0 left-0 right-0 shadow-lg text-green-600">
-      <div className="flex justify-around p-4">
+    <div
+      style={{ backgroundColor: themeColors.actionBar.background }}
+      className="fixed bottom-0 left-0 right-0 shadow-lg"
+    >
+      <div className="flex justify-around items-center p-4 max-w-7xl mx-auto">
         {actionBar.map((item, index) => (
           <Popover
             key={item.label}
@@ -103,39 +135,50 @@ const Actionbar = () => {
             onOpenChange={(open) => setOpenPopoverIndex(open ? index : null)}
           >
             <PopoverTrigger>
-              <div className="flex flex-col items-center justify-center gap-2">
-                <Image
-                  src={item.imgUrl}
-                  alt={item.label}
-                  width={25}
-                  height={25}
-                />
-                {item.label}
+              <div
+                className="flex flex-col items-center justify-center gap-2 transition-transform hover:scale-110 cursor-pointer group"
+                data-action={item.label.toLowerCase()}
+                id={`action-${item.label.toLowerCase()}`}
+              >
+                <div className="relative w-12 h-12 flex items-center justify-center rounded-full bg-white/10 group-hover:bg-white/20 transition-colors">
+                  <Image
+                    src={item.imgUrl}
+                    alt={item.label}
+                    width={25}
+                    height={25}
+                    className="opacity-90 invert"
+                  />
+                </div>
+                <span
+                  style={{ color: themeColors.actionBar.text }}
+                  className="text-sm font-serif"
+                >
+                  {item.label}
+                </span>
               </div>
             </PopoverTrigger>
 
             {item.content && (
               <PopoverContent
-                className={`max-sm:ml-2 mb-6 w-full max-sm:min-w-[375px]${
-                  // if the first content item is RSVP or Speech, use mr-4, otherwise use mr-[-8px]
-                  item.content &&
-                  (isRSVPContent(item.content[0]) ||
-                    isSpeechContent(item.content[0]))
-                    ? "max-sm:mr-[15px]"
-                    : "max-sm:mr-[-8px]"
-                }`}
+                style={{
+                  backgroundColor: themeColors.container,
+                  borderColor: themeColors.actionBar.border,
+                }}
+                className="mb-[-30px] w-full max-w-sm rounded-2xl shadow-xl border-2"
               >
-                <h1 className="text-center font-bold mb-4 text-main-2">
-                  {item.label.toUpperCase()}
+                <h1
+                  style={{ color: themeColors.text.primary }}
+                  className="text-center font-script text-2xl mb-6"
+                >
+                  {item.label}
                 </h1>
                 {item.content.map((contentItem, contentIndex) => (
                   <div key={contentIndex}>
-                    {/* existing contact and location content handling */}
+                    {/* Contact and Location content */}
                     {!isRSVPContent(contentItem) &&
                       !isSpeechContent(contentItem) && (
-                        <div className="mb-4 flex items-center justify-between gap-4">
+                        <div className="mb-4 flex items-center justify-between gap-4 p-2 rounded-lg hover:bg-white/50 transition-colors">
                           <div className="flex flex-col mb-2">
-                            {/* Name and copy button container */}
                             <div
                               className={`${
                                 "googleMapsLink" in contentItem
@@ -143,19 +186,16 @@ const Actionbar = () => {
                                   : "flex flex-col"
                               }`}
                             >
-                              {/* Copy button only for LocationContent */}
                               {"googleMapsLink" in contentItem && (
                                 <button
                                   onClick={() =>
                                     copyToClipboard(contentItem.name)
                                   }
-                                  className="flex-shrink-0"
+                                  className="flex-shrink-0 hover:scale-110 transition-transform"
                                 >
                                   {copySuccess ? (
-                                    // show CircleCheck icon when copy is successful
-                                    <CircleCheck className="text-white fill-green-500" />
+                                    <CircleCheck className="text-green-500" />
                                   ) : (
-                                    // show copy icon when not copied
                                     <Image
                                       src="/icons/copy.svg"
                                       alt="copy"
@@ -167,15 +207,21 @@ const Actionbar = () => {
                               )}
                               <div className="flex flex-col">
                                 {contentItem.name.split("\n").map((line, i) => (
-                                  <p key={i} className="font-medium">
+                                  <p
+                                    key={i}
+                                    style={{ color: themeColors.text.primary }}
+                                    className="font-medium"
+                                  >
                                     {line}
                                   </p>
                                 ))}
                               </div>
                             </div>
-                            {/* only show title if it exists */}
                             {"title" in contentItem && contentItem.title && (
-                              <p className="text-gray-400 italic">
+                              <p
+                                style={{ color: themeColors.text.secondary }}
+                                className="text-sm italic"
+                              >
                                 {contentItem.title}
                               </p>
                             )}
@@ -190,7 +236,7 @@ const Actionbar = () => {
                                     href={contentItem.whatsappLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 text-green-600"
+                                    className="hover:scale-110 transition-transform"
                                   >
                                     <Image
                                       src="/icons/whatsapp.svg"
@@ -204,7 +250,7 @@ const Actionbar = () => {
                                 contentItem.phoneLink && (
                                   <a
                                     href={contentItem.phoneLink}
-                                    className="flex items-center gap-2 text-blue-600"
+                                    className="hover:scale-110 transition-transform"
                                   >
                                     <Image
                                       src="/icons/call.svg"
@@ -219,14 +265,14 @@ const Actionbar = () => {
 
                           {/* Location links */}
                           {hasLocationLinks(contentItem) && (
-                            <div className="flex gap-4 mb-3">
+                            <div className="flex gap-4">
                               {"googleMapsLink" in contentItem &&
                                 contentItem.googleMapsLink && (
                                   <a
                                     href={contentItem.googleMapsLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center justify-center gap-2 text-red-600"
+                                    className="hover:scale-110 transition-transform"
                                   >
                                     <Image
                                       src="/icons/googlemaps.svg"
@@ -242,7 +288,7 @@ const Actionbar = () => {
                                     href={contentItem.wazeLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center justify-center gap-2 text-blue-600"
+                                    className="hover:scale-110 transition-transform"
                                   >
                                     <Image
                                       src="/icons/waze.svg"
@@ -262,20 +308,28 @@ const Actionbar = () => {
                       <div className="flex flex-col gap-4">
                         {!showRSVPForm ? (
                           <>
-                            <p className="text-center mb-2">
+                            <p
+                              style={{ color: themeColors.text.secondary }}
+                              className="text-center mb-2"
+                            >
                               Adakah anda dapat hadir ke{" "}
                               <br className="md:hidden" />
                               majlis perkahwinan ini?
                             </p>
                             <div className="flex justify-center gap-4">
                               <Button
-                                variant="primary"
+                                style={{ backgroundColor: themeColors.primary }}
+                                className="text-white hover:bg-opacity-90"
                                 onClick={() => setShowRSVPForm(true)}
                               >
                                 Ya
                               </Button>
                               <Button
                                 variant="outline"
+                                style={{
+                                  borderColor: themeColors.primary,
+                                  color: themeColors.primary,
+                                }}
                                 onClick={() => handleRSVPSubmit("no")}
                               >
                                 Tidak
@@ -299,37 +353,61 @@ const Actionbar = () => {
                               >
                                 <ArrowLeft className="h-4 w-4" />
                               </Button>
-                              <span>Kembali</span>
+                              <span
+                                style={{ color: themeColors.text.secondary }}
+                              >
+                                Kembali
+                              </span>
                             </div>
                             <Input
                               placeholder="Nama"
                               value={name}
                               onChange={(e) => setName(e.target.value)}
                               required
+                              className="border-2"
+                              style={{
+                                borderColor: themeColors.actionBar.border,
+                              }}
                             />
                             <div className="flex items-center gap-4">
-                              <span>Jumlah tetamu:</span>
+                              <span
+                                style={{ color: themeColors.text.secondary }}
+                              >
+                                Jumlah tetamu:
+                              </span>
                               <Button
                                 type="button"
                                 variant="outline"
                                 size="icon"
+                                style={{
+                                  borderColor: themeColors.actionBar.border,
+                                }}
                                 onClick={() =>
                                   setGuestCount(Math.max(1, guestCount - 1))
                                 }
                               >
                                 <Minus className="h-4 w-4" />
                               </Button>
-                              <span>{guestCount}</span>
+                              <span style={{ color: themeColors.text.primary }}>
+                                {guestCount}
+                              </span>
                               <Button
                                 type="button"
                                 variant="outline"
                                 size="icon"
+                                style={{
+                                  borderColor: themeColors.actionBar.border,
+                                }}
                                 onClick={() => setGuestCount(guestCount + 1)}
                               >
                                 <Plus className="h-4 w-4" />
                               </Button>
                             </div>
-                            <Button variant="primary" type="submit">
+                            <Button
+                              style={{ backgroundColor: themeColors.primary }}
+                              className="text-white hover:bg-opacity-90"
+                              type="submit"
+                            >
                               Hantar
                             </Button>
                           </form>
@@ -351,13 +429,16 @@ const Actionbar = () => {
                           value={speechName}
                           onChange={(e) => setSpeechName(e.target.value)}
                           required
+                          className="border-2"
+                          style={{ borderColor: themeColors.actionBar.border }}
                         />
                         <Textarea
                           placeholder="Tulis ucapan anda di sini"
                           value={speech}
                           onChange={(e) => setSpeech(e.target.value)}
                           required
-                          className="min-h-[100px]"
+                          className="min-h-[100px] border-2"
+                          style={{ borderColor: themeColors.actionBar.border }}
                         />
                         <div className="relative">
                           <Input
@@ -370,6 +451,9 @@ const Actionbar = () => {
                             type="button"
                             variant="outline"
                             className="w-full flex items-center gap-2"
+                            style={{
+                              borderColor: themeColors.actionBar.border,
+                            }}
                           >
                             <Image
                               src="/icons/upload.svg"
@@ -377,13 +461,16 @@ const Actionbar = () => {
                               width={20}
                               height={20}
                             />
-                            {/* if have image the placeholder will be the image name, if not it will be Muat naik gambar */}
                             {image
                               ? image.name
                               : "Gambar kenangan manis bersama pengantin"}
                           </Button>
                         </div>
-                        <Button variant="primary" type="submit">
+                        <Button
+                          style={{ backgroundColor: themeColors.primary }}
+                          className="text-white hover:bg-opacity-90"
+                          type="submit"
+                        >
                           Hantar
                         </Button>
                       </form>

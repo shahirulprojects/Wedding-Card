@@ -1,32 +1,34 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cormorant_Garamond, Great_Vibes } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-cormorant",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const greatVibes = Great_Vibes({
   subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-great-vibes",
 });
 
 export const metadata: Metadata = {
-  title: "Perkahwinan Hisham & Fatin",
-  description: "Jemputan Ke Perkahwinan Hisham & Fatin",
+  title: "Walimatul Urus - Hisham & Fatin",
+  description: "Wedding invitation for Hisham & Fatin",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${cormorant.variable} ${greatVibes.variable} font-serif`}
       >
         {children}
         <Toaster />
