@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Carousel,
@@ -7,25 +8,51 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { guestMessages, themeColors } from "@/constants";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { themeColors } from "@/constants";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
-export function Example() {
-  return (
-    <Carousel
-      plugins={[
-        Autoplay({
-          delay: 1000,
-        }),
-      ]}
-    >
-      // ...
-    </Carousel>
-  );
+interface Speech {
+  id: number;
+  name: string;
+  speech: string;
+  imageUrl?: string;
+  createdAt: string;
 }
 
-const SpeechSection = () => {
+export const SpeechSection = () => {
+  const [speeches, setSpeeches] = useState<Speech[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchSpeeches();
+  }, []);
+
+  const fetchSpeeches = async () => {
+    try {
+      const response = await fetch("/api/speeches");
+      if (!response.ok) throw new Error("Failed to fetch speeches");
+      const data = await response.json();
+      setSpeeches(data);
+    } catch (error) {
+      console.error("Error fetching speeches:", error);
+    }
+  };
+
+  // Make fetchSpeeches available globally
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      (window as any).refreshSpeeches = fetchSpeeches;
+    }
+  }, []);
+
   // Function to trigger the speech form in action bar
   const handleWriteSpeech = () => {
     if (typeof window !== "undefined" && (window as any).openSpeechForm) {
@@ -35,6 +62,7 @@ const SpeechSection = () => {
 
   return (
     <div
+      id="speeches-section"
       style={{ backgroundColor: themeColors.background }}
       className="mb-10 min-h-screen flex w-full items-center justify-center py-20 px-4 relative overflow-hidden"
     >
@@ -69,86 +97,109 @@ const SpeechSection = () => {
           />
         </motion.div>
 
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          plugins={[
-            Autoplay({
-              delay: 2000,
-            }),
-          ]}
-          className="w-full"
-        >
-          <CarouselContent className="-ml-2 md:-ml-4">
-            {guestMessages.map((item, index) => (
-              <CarouselItem
-                key={index}
-                className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  style={{ backgroundColor: themeColors.container }}
-                  className="backdrop-blur-sm p-6 rounded-xl shadow-lg h-full flex flex-col"
-                >
-                  <div className="flex-1">
-                    <p
-                      style={{ color: themeColors.text.primary }}
-                      className="font-serif italic mb-4"
+        {speeches.length > 0 ? (
+          <div className="w-full max-w-4xl py-8">
+            <Carousel
+              plugins={[
+                Autoplay({
+                  delay: 1500,
+                }),
+              ]}
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {speeches.map((speech) => (
+                  <CarouselItem
+                    key={speech.id}
+                    className="pl-4 md:basis-1/2 lg:basis-1/3"
+                  >
+                    <div
+                      style={{ backgroundColor: themeColors.container }}
+                      className="h-full rounded-lg border border-[#C49D83] p-6 flex flex-col"
                     >
-                      "{item.message}"
-                    </p>
-                  </div>
-                  <div className="mt-4 pt-4 border-t border-[#92B4CD]/20">
-                    {item.author && (
-                      <p
-                        style={{ color: themeColors.text.secondary }}
-                        className="font-serif text-right"
-                      >
-                        - {item.author}
-                      </p>
-                    )}
-                    {item.hashtag && (
-                      <p
-                        style={{ color: themeColors.text.secondary }}
-                        className="font-serif text-right"
-                      >
-                        {item.hashtag}
-                      </p>
-                    )}
-                  </div>
-                </motion.div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <div className="hidden md:block">
-            <CarouselPrevious className="left-0" />
-            <CarouselNext className="right-0" />
+                      {speech.imageUrl && (
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <div className="mb-4 h-48 w-full overflow-hidden rounded-lg cursor-pointer transition-transform hover:scale-105">
+                              <img
+                                src={speech.imageUrl}
+                                alt={`${speech.name}'s image`}
+                                className="h-full w-full object-cover"
+                              />
+                            </div>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-[95vw] max-h-[95vh] p-4 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                            <VisuallyHidden>
+                              <DialogTitle>
+                                Gambar dari {speech.name}
+                              </DialogTitle>
+                            </VisuallyHidden>
+                            <div className="relative w-auto h-auto max-w-full max-h-[85vh] overflow-auto">
+                              <img
+                                src={speech.imageUrl}
+                                alt={`${speech.name}'s image`}
+                                className="block w-auto h-auto max-w-none"
+                                style={{ margin: "auto" }}
+                              />
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                      )}
+                      <div className="flex-1">
+                        <h3
+                          style={{ color: themeColors.text.primary }}
+                          className="mb-2 text-lg font-semibold"
+                        >
+                          {speech.name}
+                        </h3>
+                        <p
+                          style={{ color: themeColors.text.secondary }}
+                          className="font-serif italic"
+                        >
+                          "{speech.speech}"
+                        </p>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
           </div>
-        </Carousel>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center py-8"
+          >
+            <p
+              style={{ color: themeColors.text.secondary }}
+              className="text-lg font-serif italic"
+            >
+              Tiada Ucapan Lagi
+            </p>
+          </motion.div>
+        )}
 
-        <motion.div
+        <motion.button
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
           viewport={{ once: true }}
-          className="mt-12 text-center"
+          onClick={handleWriteSpeech}
+          style={{ backgroundColor: themeColors.primary }}
+          className="mt-8 mx-auto block text-white px-8 py-3 rounded-full font-serif hover:bg-[#40916C] transition-colors"
         >
-          <button
-            onClick={handleWriteSpeech}
-            style={{ backgroundColor: themeColors.primary }}
-            className="text-white px-8 py-3 rounded-full font-serif hover:bg-[#40916C] transition-colors"
-          >
-            Tulis Ucapan
-          </button>
-        </motion.div>
+          Tulis Ucapan
+        </motion.button>
       </div>
     </div>
   );
 };
-
-export default SpeechSection;

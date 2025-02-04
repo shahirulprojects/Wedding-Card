@@ -88,10 +88,17 @@ END:VCALENDAR`;
     }
   };
 
+  // Function to trigger the RSVP form in action bar
+  const handleRSVP = () => {
+    if (typeof window !== "undefined" && (window as any).openRSVPForm) {
+      (window as any).openRSVPForm();
+    }
+  };
+
   return (
     <div
       style={{ backgroundColor: themeColors.background }}
-      className="mt-[27px] min-h-screen w-full flex items-center justify-center py-20 px-4 relative overflow-hidden"
+      className="min-h-screen w-full flex items-center justify-center py-20 px-4 relative overflow-hidden"
     >
       {/* Corner Flowers
       <div className="absolute top-10 right-0 w-32 h-32">
@@ -141,16 +148,16 @@ END:VCALENDAR`;
           >
             Walimatul Urus
           </h2>
-          <p style={{ color: themeColors.text.light }} className="font-serif">
+          <p style={{ color: themeColors.text.primary }} className="font-serif">
             Dengan penuh kesyukuran, kami mempersilakan
           </p>
           <p
-            style={{ color: themeColors.text.light }}
+            style={{ color: themeColors.text.primary }}
             className="font-serif italic"
           >
             Dato' | Datin | Tuan | Puan | Encik | Cik
           </p>
-          <p style={{ color: themeColors.text.light }} className="font-serif">
+          <p style={{ color: themeColors.text.primary }} className="font-serif">
             seisi keluarga hadir ke majlis perkahwinan anakanda kami
           </p>
         </div>
@@ -227,17 +234,31 @@ END:VCALENDAR`;
           </div>
         </motion.div>
 
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.5 }}
-          viewport={{ once: true }}
-          onClick={handleAddToCalendar}
-          style={{ backgroundColor: themeColors.primary }}
-          className="mt-8 mx-auto block text-white px-8 py-3 rounded-full font-serif hover:bg-[#40916C] transition-colors"
-        >
-          Simpan Tarikh
-        </motion.button>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+            viewport={{ once: true }}
+            onClick={handleAddToCalendar}
+            style={{ backgroundColor: themeColors.primary }}
+            className="text-white px-8 py-3 rounded-full font-serif hover:bg-[#40916C] transition-colors"
+          >
+            Simpan Tarikh
+          </motion.button>
+
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+            viewport={{ once: true }}
+            onClick={handleRSVP}
+            style={{ backgroundColor: themeColors.primary }}
+            className="text-white px-8 py-3 rounded-full font-serif hover:bg-[#40916C] transition-colors"
+          >
+            RSVP
+          </motion.button>
+        </div>
       </motion.div>
     </div>
   );

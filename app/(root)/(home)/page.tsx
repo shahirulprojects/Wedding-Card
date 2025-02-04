@@ -3,7 +3,7 @@ import HomeLayout from "@/app/(root)/(home)/layout";
 import Actionbar from "@/components/actionbar";
 import DetailSection from "@/components/detailsection";
 import LandingSection from "@/components/landingsection";
-import SpeechSection from "@/components/speechsection";
+import { SpeechSection } from "@/components/speechsection";
 import TentativeSection from "@/components/tentativesection";
 import { themeColors } from "@/constants";
 import { motion, AnimatePresence } from "framer-motion";
@@ -92,7 +92,7 @@ const Home = () => {
                   className="mb-8"
                 >
                   <h1
-                    style={{ color: themeColors.yellow }}
+                    style={{ color: themeColors.yellowtoo }}
                     className="font-script text-5xl mb-4"
                   >
                     Walimatul Urus

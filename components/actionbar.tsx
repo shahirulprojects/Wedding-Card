@@ -20,6 +20,14 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import confetti from "canvas-confetti";
+import { motion, AnimatePresence } from "framer-motion";
+
+declare global {
+  interface Window {
+    openRSVPForm: () => void;
+    openSpeechForm: () => void;
+  }
+}
 
 const Actionbar = () => {
   // state to manage copy feedback and forms
@@ -32,6 +40,8 @@ const Actionbar = () => {
   const [image, setImage] = useState<File | null>(null);
   const [openPopoverIndex, setOpenPopoverIndex] = useState<number | null>(null);
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imageBase64, setImageBase64] = useState<string | null>(null);
 
   // helper function to copy text to clipboard
   const copyToClipboard = (text: string) => {
@@ -62,19 +72,44 @@ const Actionbar = () => {
   };
 
   // handle RSVP form submission
-  const handleRSVPSubmit = (response: "yes" | "no") => {
-    toast({
-      title: "Terima kasih!",
-      description:
-        response === "yes"
-          ? "Terima kasih atas pengesahan kehadiran anda."
-          : "Terima kasih atas maklum balas anda.",
-      variant: "default",
-    });
-    setShowRSVPForm(false);
-    setName("");
-    setGuestCount(1);
-    setOpenPopoverIndex(null);
+  const handleRSVPSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/rsvp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, guestCount }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit RSVP");
+      }
+
+      toast({
+        title: "Terima kasih!",
+        description: "Terima kasih atas pengesahan kehadiran anda.",
+      });
+
+      triggerConfetti();
+
+      // Reset form
+      setName("");
+      setGuestCount(1);
+      setShowRSVPForm(false);
+      setOpenPopoverIndex(null);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Function to trigger confetti
@@ -86,23 +121,106 @@ const Actionbar = () => {
     });
   };
 
-  // handle speech form submission with confetti
-  const handleSpeechSubmit = () => {
-    toast({
-      title: "Terima kasih!",
-      description: "Terima kasih atas ucapan anda.",
-    });
-    triggerConfetti();
-    setSpeechName("");
-    setSpeech("");
-    setImage(null);
-    setOpenPopoverIndex(null);
+  // handle image upload with base64 conversion
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Check file type
+    const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    if (!validTypes.includes(file.type)) {
+      toast({
+        title: "Error",
+        description:
+          "Sila pilih fail gambar yang sah (PNG, JPG, GIF, WEBP sahaja)",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Check file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+    if (file.size > maxSize) {
+      toast({
+        title: "Error",
+        description: "Saiz gambar terlalu besar. Had maksimum adalah 5MB",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setImage(file);
+
+    // Convert to base64
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (typeof reader.result === "string") {
+        setImageBase64(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
   };
 
-  // handle image upload
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setImage(e.target.files[0]);
+  // handle speech form submission
+  const handleSpeechSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/speeches", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: speechName,
+          speech,
+          imageUrl: imageBase64,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit speech");
+      }
+
+      // First revalidate the page
+      await fetch("/api/revalidate?path=/");
+
+      // Immediately refresh speeches
+      if (typeof window !== "undefined" && (window as any).refreshSpeeches) {
+        await (window as any).refreshSpeeches();
+      }
+
+      // Then show success message and trigger confetti
+      toast({
+        title: "Terima kasih!",
+        description: "Terima kasih atas ucapan anda.",
+      });
+      triggerConfetti();
+
+      // Reset form
+      setSpeechName("");
+      setSpeech("");
+      setImage(null);
+      setImageBase64(null);
+      setOpenPopoverIndex(null);
+
+      // Wait a short moment for the DOM to update
+      setTimeout(() => {
+        // Scroll to speeches section
+        const speechesSection = document.getElementById("speeches-section");
+        if (speechesSection) {
+          speechesSection.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100); // reduced timeout since we're not waiting for revalidation
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -116,10 +234,19 @@ const Actionbar = () => {
     }
   };
 
-  // Expose the function globally
+  // Make the functions available globally
   React.useEffect(() => {
     if (typeof window !== "undefined") {
-      (window as any).openSpeechForm = openSpeechForm;
+      window.openRSVPForm = () => {
+        const rsvpIndex = actionBar.findIndex(
+          (item) => item.label.toLowerCase() === "rsvp"
+        );
+        if (rsvpIndex !== -1) {
+          setOpenPopoverIndex(rsvpIndex);
+          setShowRSVPForm(true);
+        }
+      };
+      window.openSpeechForm = openSpeechForm;
     }
   }, []);
 
@@ -164,8 +291,9 @@ const Actionbar = () => {
                 style={{
                   backgroundColor: themeColors.container,
                   borderColor: themeColors.actionBar.border,
+                  width: isSpeechContent(item.content[0]) ? "380px" : undefined,
                 }}
-                className="mb-[30px] w-full max-w-sm rounded-2xl shadow-xl border-2"
+                className="mb-[30px] rounded-2xl shadow-xl border-2"
               >
                 <h1
                   style={{ color: themeColors.text.primary }}
@@ -278,8 +406,8 @@ const Actionbar = () => {
                                     <Image
                                       src="/icons/googlemaps.svg"
                                       alt="Google Maps"
-                                      width={30}
-                                      height={30}
+                                      width={70}
+                                      height={70}
                                     />
                                   </a>
                                 )}
@@ -294,8 +422,8 @@ const Actionbar = () => {
                                     <Image
                                       src="/icons/waze.svg"
                                       alt="Waze"
-                                      width={40}
-                                      height={40}
+                                      width={70}
+                                      height={70}
                                     />
                                   </a>
                                 )}
@@ -331,7 +459,7 @@ const Actionbar = () => {
                                   borderColor: themeColors.primary,
                                   color: themeColors.primary,
                                 }}
-                                onClick={() => handleRSVPSubmit("no")}
+                                onClick={() => setShowRSVPForm(false)}
                               >
                                 Tidak
                               </Button>
@@ -339,10 +467,7 @@ const Actionbar = () => {
                           </>
                         ) : (
                           <form
-                            onSubmit={(e) => {
-                              e.preventDefault();
-                              handleRSVPSubmit("yes");
-                            }}
+                            onSubmit={handleRSVPSubmit}
                             className="flex flex-col gap-4"
                           >
                             <div className="flex items-center gap-2 mb-2">
@@ -419,10 +544,7 @@ const Actionbar = () => {
                     {/* Speech content */}
                     {isSpeechContent(contentItem) && (
                       <form
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          handleSpeechSubmit();
-                        }}
+                        onSubmit={handleSpeechSubmit}
                         className="flex flex-col gap-4"
                       >
                         <Input
@@ -438,20 +560,20 @@ const Actionbar = () => {
                           value={speech}
                           onChange={(e) => setSpeech(e.target.value)}
                           required
-                          className="min-h-[100px] border-2"
+                          className="min-h-[100px] max-h-[200px] border-2"
                           style={{ borderColor: themeColors.actionBar.border }}
                         />
-                        <div className="relative">
+                        <div className="relative h-[38px]">
                           <Input
                             type="file"
-                            accept="image/*"
+                            accept="image/png,image/jpeg,image/gif,image/webp"
                             onChange={handleImageUpload}
-                            className="opacity-0 absolute inset-0 cursor-pointer"
+                            className="absolute inset-0 opacity-0 cursor-pointer z-10 w-full"
                           />
                           <Button
                             type="button"
                             variant="outline"
-                            className="w-full flex items-center gap-2"
+                            className="w-full flex items-center gap-2 absolute inset-0"
                             style={{
                               borderColor: themeColors.actionBar.border,
                             }}
@@ -462,9 +584,11 @@ const Actionbar = () => {
                               width={20}
                               height={20}
                             />
-                            {image
-                              ? image.name
-                              : "Gambar kenangan manis bersama pengantin"}
+                            <span className="truncate">
+                              {image
+                                ? image.name
+                                : "Gambar kenangan manis bersama pengantin"}
+                            </span>
                           </Button>
                         </div>
                         <Button
