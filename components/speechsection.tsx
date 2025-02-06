@@ -138,12 +138,11 @@ export const SpeechSection = () => {
                                 Gambar dari {speech.name}
                               </DialogTitle>
                             </VisuallyHidden>
-                            <div className="relative w-auto h-auto max-w-full max-h-[85vh] overflow-auto">
+                            <div className="relative w-full h-full flex items-center justify-center">
                               <img
                                 src={speech.imageUrl}
                                 alt={`${speech.name}'s image`}
-                                className="block w-auto h-auto max-w-none"
-                                style={{ margin: "auto" }}
+                                className="max-w-full max-h-[80vh] object-contain"
                               />
                             </div>
                           </DialogContent>
