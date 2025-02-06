@@ -14,7 +14,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CircleCheck, Minus, Plus, ArrowLeft } from "lucide-react";
+import { CircleCheck, Minus, Plus, ArrowLeft, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -533,8 +533,16 @@ const Actionbar = () => {
                               style={{ backgroundColor: themeColors.primary }}
                               className="text-white hover:bg-opacity-90"
                               type="submit"
+                              disabled={isSubmitting}
                             >
-                              Hantar
+                              {isSubmitting ? (
+                                <div className="flex items-center gap-2">
+                                  <Loader2 className="h-4 w-4 animate-spin" />
+                                  <span>Menghantar...</span>
+                                </div>
+                              ) : (
+                                "Hantar"
+                              )}
                             </Button>
                           </form>
                         )}
@@ -595,8 +603,16 @@ const Actionbar = () => {
                           style={{ backgroundColor: themeColors.primary }}
                           className="text-white hover:bg-opacity-90"
                           type="submit"
+                          disabled={isSubmitting}
                         >
-                          Hantar
+                          {isSubmitting ? (
+                            <div className="flex items-center gap-2">
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                              <span>Menghantar...</span>
+                            </div>
+                          ) : (
+                            "Hantar"
+                          )}
                         </Button>
                       </form>
                     )}

@@ -18,6 +18,7 @@ import { themeColors } from "@/constants";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { Loader2 } from "lucide-react";
 
 interface Speech {
   id: number;
@@ -30,6 +31,7 @@ interface Speech {
 export const SpeechSection = () => {
   const [speeches, setSpeeches] = useState<Speech[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchSpeeches();
@@ -37,12 +39,15 @@ export const SpeechSection = () => {
 
   const fetchSpeeches = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch("/api/speeches");
       if (!response.ok) throw new Error("Failed to fetch speeches");
       const data = await response.json();
       setSpeeches(data);
     } catch (error) {
       console.error("Error fetching speeches:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -97,7 +102,26 @@ export const SpeechSection = () => {
           />
         </motion.div>
 
-        {speeches.length > 0 ? (
+        {isLoading ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center py-8 flex flex-col items-center gap-4"
+          >
+            <Loader2
+              className="h-8 w-8 animate-spin"
+              style={{ color: themeColors.text.secondary }}
+            />
+            <p
+              style={{ color: themeColors.text.secondary }}
+              className="text-lg font-serif italic"
+            >
+              Memuat ucapan...
+            </p>
+          </motion.div>
+        ) : speeches.length > 0 ? (
           <div className="w-full max-w-4xl py-8">
             <Carousel
               plugins={[
