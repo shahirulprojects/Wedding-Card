@@ -88,7 +88,7 @@ npm install
 
 **Set Up Environment Variables**
 
-Create two new file named `.env.local` and `.env` in the root of your project and add the following content:
+Create two new file named `.env.local` and `.env` in the root of your project and add the following content to each file:
 
 ```env.local
 
@@ -96,11 +96,6 @@ DATABASE_URL=
 
 ```
 
-```env
-
-DATABASE_URL=
-
-```
 Replace the placeholder values with your actual respective account credentials. You can obtain these credentials by signing up on [PostgreSQL](https://www.postgresql.org/) and [Neon](https://neon.tech/)
 
 **Running the Project**
