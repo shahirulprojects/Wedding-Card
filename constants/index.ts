@@ -159,19 +159,19 @@ export const actionBar: ActionBarItem[] = [
 
 // Theme Colors
 export const themeColors = {
-  primary: "#012169", // soft blue
-  accent: "#6B8DBF", // lighter blue
-  background: "#F5F7FA", // very light blue-gray
-  container: "#FFFFFF", // white
-  yellow: "#4A6FA5", // changed to match primary blue
+  primary: "#012169",
+  accent: "#6B8DBF",
+  background: "#F5F7FA",
+  container: "#FFFFFF",
+  yellow: "#4A6FA5",
   yellowtoo: "#F5F7FA",
   text: {
-    primary: "#012169", // dark blue
-    secondary: "#5B7BA3", // medium blue
+    primary: "#012169",
+    secondary: "#5B7BA3",
   },
   actionBar: {
-    background: "#012169", // dark blue
-    text: "#FFFFFF", // white
-    border: "#6B8DBF", // lighter blue
+    background: "#012169",
+    text: "#FFFFFF",
+    border: "#6B8DBF",
   },
 };

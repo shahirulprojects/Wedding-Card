@@ -62,7 +62,7 @@ const Home = () => {
                 style={{ backgroundColor: themeColors.primary }}
                 className="absolute left-0 w-1/2 h-full shadow-2xl"
               >
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-32 bg-yellow-500/50 blur-sm" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-32 blur-sm" />
               </motion.div>
 
               {/* Right door */}
@@ -74,7 +74,7 @@ const Home = () => {
                 style={{ backgroundColor: themeColors.primary }}
                 className="absolute right-0 w-1/2 h-full shadow-2xl"
               >
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-32 bg-yellow-500/50 blur-sm" />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-32 blur-sm" />
               </motion.div>
 
               {/* Center content */}
@@ -109,7 +109,7 @@ const Home = () => {
                   className="group relative px-8 py-4 overflow-hidden rounded-full"
                 >
                   {/* Button background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/80 to-yellow-600/80 transition-transform group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-yellow-400 transition-transform group-hover:scale-105" />
                   {/* Button shine effect */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-transparent via-white to-transparent -skew-x-12 group-hover:animate-shine" />
                   {/* Button text */}
