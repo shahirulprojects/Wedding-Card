@@ -109,7 +109,7 @@ const Home = () => {
                   className="group relative px-8 py-4 overflow-hidden rounded-full"
                 >
                   {/* Button background */}
-                  <div className="absolute inset-0 bg-yellow-400 transition-transform group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-yellow-500 transition-transform group-hover:scale-105" />
                   {/* Button shine effect */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-transparent via-white to-transparent -skew-x-12 group-hover:animate-shine" />
                   {/* Button text */}
