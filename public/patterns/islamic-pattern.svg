@@ -9,18 +9,8 @@
       <path fill="none" stroke="#f3a83c" stroke-width="1.5" opacity="0.7" d="M100,-83.3L116.7,-50 150,-33.3 116.7,-16.7 100,16.7 83.3,-16.7 50,-33.3 83.3,-50z" />
       <path fill="none" stroke="#f3a83c" stroke-width="1.5" opacity="0.7" d="M100,116.7L116.7,150 150,166.7 116.7,183.3 100,216.7 83.3,183.3 50,166.7 83.3,150z" />
       
-      <!-- Floral flourishes -->
-      <path fill="none" stroke="#f3a83c" stroke-width="1" opacity="0.5" d="M100,66.7 C110,76.7 120,76.7 130,66.7 C120,86.7 130,96.7 150,96.7 C130,96.7 120,106.7 130,126.7 C120,116.7 110,116.7 100,126.7 C90,116.7 80,116.7 70,126.7 C80,106.7 70,96.7 50,96.7 C70,96.7 80,86.7 70,66.7 C80,76.7 90,76.7 100,66.7Z" />
-      
       <!-- Geometric connections -->
       <path fill="none" stroke="#f3a83c" stroke-width="0.75" opacity="0.3" d="M0,0 L50,50 M50,50 L100,0 M100,0 L150,50 M150,50 L200,0 M0,100 L50,50 M50,50 L100,100 M100,100 L150,50 M150,50 L200,100 M0,200 L50,150 M50,150 L100,200 M100,200 L150,150 M150,150 L200,200 M0,0 L50,150 M50,150 L100,0 M100,0 L150,150 M150,150 L200,0" />
-      
-      <!-- Subtle circles -->
-      <circle cx="100" cy="100" r="15" fill="none" stroke="#f3a83c" stroke-width="0.5" opacity="0.4" />
-      <circle cx="0" cy="0" r="15" fill="none" stroke="#f3a83c" stroke-width="0.5" opacity="0.4" />
-      <circle cx="200" cy="0" r="15" fill="none" stroke="#f3a83c" stroke-width="0.5" opacity="0.4" />
-      <circle cx="0" cy="200" r="15" fill="none" stroke="#f3a83c" stroke-width="0.5" opacity="0.4" />
-      <circle cx="200" cy="200" r="15" fill="none" stroke="#f3a83c" stroke-width="0.5" opacity="0.4" />
     </pattern>
   </defs>
   <rect width="100%" height="100%" fill="url(#islamic-pattern)" />
