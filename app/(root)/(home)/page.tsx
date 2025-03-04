@@ -38,8 +38,7 @@ const Home = () => {
           style={{ backgroundColor: themeColors.background }}
           className="fixed inset-0 overflow-hidden"
         >
-          {/* Animated gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1B4332]/30 to-[#1B4332] animate-gradient" />
+          {/* No gradient overlay */}
         </div>
 
         {/* Door animation container */}

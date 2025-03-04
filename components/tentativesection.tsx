@@ -48,8 +48,7 @@ const TentativeSection = () => {
         {/* Islamic pattern background as middle layer - full opacity */}
         <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/islamic-pattern.svg')] bg-repeat" />
 
-        {/* Light gradient overlay for content readability without hiding patterns */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F5F7FA]/50 via-[#F5F7FA]/40 to-[#F5F7FA]/50" />
+        {/* No gradient overlay */}
       </div>
 
       <div className="max-w-4xl w-full relative" style={{ zIndex: 10 }}>
