@@ -73,7 +73,7 @@ export const SpeechSection = () => {
       {/* Islamic pattern backgrounds - positioned at back with z-index */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
         {/* Islamic pattern background as middle layer - full opacity */}
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/islamic-pattern.svg')] bg-repeat" />
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/islamic-pattern.svg')] bg-repeat opacity-30" />
 
         {/* No gradient overlay */}
       </div>
