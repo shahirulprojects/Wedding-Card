@@ -96,50 +96,23 @@ END:VCALENDAR`;
   };
 
   return (
-    <div
-      style={{ backgroundColor: themeColors.background }}
-      className="min-h-screen w-full flex items-center justify-center py-20 px-4 relative overflow-hidden"
-    >
-      {/* Corner Flowers
-      <div className="absolute top-10 right-0 w-32 h-32">
-        <Image
-          src="\icons\flowercorner.svg"
-          alt="corner flower"
-          width={60}
-          height={60}
-        />
+    <div className="min-h-screen w-full flex items-center justify-center py-20 px-4 relative overflow-hidden">
+      {/* Islamic pattern backgrounds - positioned at back with z-index */}
+      <div className="absolute inset-0" style={{ zIndex: 0 }}>
+        {/* Islamic pattern background as middle layer - full opacity */}
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/islamic-pattern.svg')] bg-repeat" />
+
+        {/* Light gradient overlay for content readability without hiding patterns */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F5F7FA]/50 via-[#F5F7FA]/40 to-[#F5F7FA]/50" />
       </div>
-      <div className="absolute top-10 left-0 w-32 h-32 transform -scale-x-100">
-        <Image
-          src="\icons\flowercorner.svg"
-          alt="corner flower"
-          width={60}
-          height={60}
-        />
-      </div> */}
-      {/* <div className="absolute bottom-0 right-0 w-32 h-32 transform rotate-90">
-        <Image
-          src="\icons\flowercorner.svg"
-          alt="corner flower"
-          width={60}
-          height={60}
-        />
-      </div>
-      <div className="absolute bottom-0 left-0 w-32 h-32 transform -rotate-90 -scale-x-100">
-        <Image
-          src="\icons\flowercorner.svg"
-          alt="corner flower"
-          width={60}
-          height={60}
-        />
-      </div> */}
 
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="max-w-3xl w-full"
+        className="max-w-4xl w-full relative"
+        style={{ zIndex: 10 }}
       >
         <div className="text-center mb-12">
           <h2
@@ -234,14 +207,20 @@ END:VCALENDAR`;
           </div>
         </motion.div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <div
+          className="flex flex-col sm:flex-row gap-4 justify-center mt-8 relative"
+          style={{ zIndex: 20 }}
+        >
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.5 }}
             viewport={{ once: true }}
             onClick={handleAddToCalendar}
-            style={{ backgroundColor: themeColors.primary }}
+            style={{
+              backgroundColor: themeColors.primary,
+              position: "relative",
+            }}
             className="text-white px-8 py-3 rounded-full font-serif hover:bg-[#40916C] transition-colors"
           >
             Simpan Tarikh
@@ -253,7 +232,10 @@ END:VCALENDAR`;
             transition={{ delay: 0.7, duration: 0.5 }}
             viewport={{ once: true }}
             onClick={handleRSVP}
-            style={{ backgroundColor: themeColors.primary }}
+            style={{
+              backgroundColor: themeColors.primary,
+              position: "relative",
+            }}
             className="text-white px-8 py-3 rounded-full font-serif hover:bg-[#40916C] transition-colors"
           >
             RSVP

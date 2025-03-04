@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="600" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="subtle-islamic" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+      <!-- Subtle eight-pointed star -->
+      <path fill="none" stroke="#f3a83c" stroke-width="0.5" opacity="0.3" 
+            d="M50,10 L55,30 L75,35 L55,40 L50,60 L45,40 L25,35 L45,30 Z" />
+      
+      <!-- Connecting lines -->
+      <path fill="none" stroke="#f3a83c" stroke-width="0.3" opacity="0.2" 
+            d="M0,0 L25,25 M25,25 L50,0 M50,0 L75,25 M75,25 L100,0 M0,50 L25,25 M25,25 L50,50 M50,50 L75,25 M75,25 L100,50 M0,100 L25,75 M25,75 L50,100 M50,100 L75,75 M75,75 L100,100" />
+      
+      <!-- Delicate flourishes -->
+      <path fill="none" stroke="#f3a83c" stroke-width="0.4" opacity="0.25" 
+            d="M50,35 C55,40 60,40 65,35 C60,45 65,50 75,50 C65,50 60,55 65,65 C60,60 55,60 50,65 C45,60 40,60 35,65 C40,55 35,50 25,50 C35,50 40,45 35,35 C40,40 45,40 50,35 Z" />
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#subtle-islamic)" />
+</svg> 

@@ -33,24 +33,20 @@ const Home = () => {
   return (
     <>
       <div className="relative w-full">
-        {/* Background with pattern */}
+        {/* Base background */}
         <div
           style={{ backgroundColor: themeColors.background }}
           className="fixed inset-0 overflow-hidden"
         >
-          {/* Decorative background patterns */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/floral-pattern.png')] bg-repeat opacity-30" />
-          </div>
           {/* Animated gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1B4332]/50 to-[#1B4332] animate-gradient" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1B4332]/30 to-[#1B4332] animate-gradient" />
         </div>
 
         {/* Door animation container */}
         <AnimatePresence>
           {!isOpen && (
             <motion.div
-              className="fixed inset-0 flex items-center justify-center z-50"
+              className="fixed inset-0 flex items-center justify-center z-[100]"
               initial={false}
             >
               {/* Left door */}
@@ -129,11 +125,15 @@ const Home = () => {
           transition={{ duration: 1, delay: 0.5 }}
           className="relative w-full"
         >
-          <div className="relative">
-            <LandingSection />
-            <DetailSection />
-            <TentativeSection />
-            <SpeechSection />
+          {/* Content wrapper with Islamic pattern background */}
+          <div className="relative w-full">
+            {/* Content sections */}
+            <div className="relative">
+              <LandingSection />
+              <DetailSection />
+              <TentativeSection />
+              <SpeechSection />
+            </div>
           </div>
         </motion.div>
       </div>

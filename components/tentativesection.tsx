@@ -12,7 +12,10 @@ const TimelineItem = ({ time, event }: { time: string; event: string }) => (
     className="flex gap-8 items-center relative"
   >
     <div className="w-32 text-right">
-      <span style={{ color: themeColors.text.light }} className="font-serif">
+      <span
+        style={{ color: themeColors.text.secondary }}
+        className="font-serif"
+      >
         {time}
       </span>
     </div>
@@ -39,59 +42,30 @@ const TimelineItem = ({ time, event }: { time: string; event: string }) => (
 
 const TentativeSection = () => {
   return (
-    <div
-      style={{ backgroundColor: themeColors.background }}
-      className="min-h-screen flex w-full items-center justify-center py-20 px-4 relative overflow-hidden"
-    >
-      {/* Corner Flowers
-      <div className="absolute top-[70px] right-0 w-32 h-32">
-        <Image
-          src="\icons\flowercorner.svg"
-          alt="corner flower"
-          width={60}
-          height={60}
-          className="ml-3"
-        />
-      </div>
-      <div className="absolute top-[70px] left-0 w-32 h-32 transform -scale-x-100">
-        <Image
-          src="\icons\flowercorner.svg"
-          alt="corner flower"
-          width={60}
-          height={60}
-          className="ml-5"
-        />
-      </div> */}
-      {/* <div className="absolute bottom-0 right-0 w-32 h-32 transform rotate-90">
-        <Image
-          src="\icons\flowercorner.svg"
-          alt="corner flower"
-          width={60}
-          height={60}
-        />
-      </div>
-      <div className="absolute bottom-0 left-0 w-32 h-32 transform -rotate-90 -scale-x-100">
-        <Image
-          src="\icons\flowercorner.svg"
-          alt="corner flower"
-          width={60}
-          height={60}
-        />
-      </div> */}
+    <div className="min-h-screen flex w-full items-center justify-center py-20 px-4 relative overflow-hidden">
+      {/* Islamic pattern backgrounds - positioned at back with z-index */}
+      <div className="absolute inset-0" style={{ zIndex: 0 }}>
+        {/* Islamic pattern background as middle layer - full opacity */}
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/islamic-pattern.svg')] bg-repeat" />
 
-      <div className="max-w-4xl w-full">
+        {/* Light gradient overlay for content readability without hiding patterns */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F5F7FA]/50 via-[#F5F7FA]/40 to-[#F5F7FA]/50" />
+      </div>
+
+      <div className="max-w-4xl w-full relative" style={{ zIndex: 10 }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-16 relative"
+          style={{ zIndex: 10 }}
         >
           <h2
-            style={{ color: themeColors.yellow }}
+            style={{ color: themeColors.yellow, opacity: 1 }}
             className="font-script text-4xl mb-4 tracking-wider"
           >
-            Atur Cara Majlis
+            Aturcara Majlis
           </h2>
           <div
             style={{ backgroundColor: themeColors.accent }}

@@ -5,24 +5,22 @@ import { themeColors, weddingInfo } from "@/constants";
 
 const LandingSection = () => {
   return (
-    <div
-      style={{ backgroundColor: themeColors.background }}
-      className="min-h-screen flex w-full items-center justify-center flex-col relative overflow-hidden"
-    >
-      {/* decorative patterns */}
-      <div className="absolute inset-0 opacity-10">
-        {/* <div className="absolute top-0 left-0 w-full h-64 bg-[url('/patterns/top-pattern.png')] bg-repeat-x" /> */}
-        <div className="absolute top-0 left-0 w-full h-64 bg-[url('/patterns/top-pattern.png')] bg-repeat-x" />
-        {/* <div className="absolute bottom-0 left-0 w-full h-64 bg-[url('/patterns/bottom-pattern.png')] bg-repeat-x rotate-180" /> */}
-        <div className="absolute top-0 left-0 w-full h-64 bg-[url('/patterns/top-pattern.png')] bg-repeat-x" />
+    <div className="min-h-screen flex w-full items-center justify-center flex-col relative overflow-hidden">
+      {/* Islamic pattern backgrounds - positioned at back with z-index */}
+      <div className="absolute inset-0" style={{ zIndex: 0 }}>
+        {/* Islamic pattern background as middle layer - full opacity */}
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/islamic-pattern.svg')] bg-repeat" />
+
+        {/* Light gradient overlay for content readability without hiding patterns */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F5F7FA]/50 via-[#F5F7FA]/40 to-[#F5F7FA]/50" />
       </div>
 
-      {/* main content frame */}
+      {/* main content frame - higher z-index to appear above patterns */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
-        style={{ backgroundColor: themeColors.container }}
+        style={{ backgroundColor: themeColors.container, zIndex: 10 }}
         className="backdrop-blur-sm p-12 rounded-3xl shadow-lg max-w-2xl mx-4 relative"
       >
         {/* decorative ornament */}
@@ -42,7 +40,7 @@ const LandingSection = () => {
           transition={{ delay: 0.3 }}
           className="text-center"
         >
-          <h3 className=" text-xl mb-6 tracking-wider">WALIMATUL URUS</h3>
+          <h3 className="text-xl mb-6 tracking-wider">WALIMATUL URUS</h3>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

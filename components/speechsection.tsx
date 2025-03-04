@@ -68,19 +68,31 @@ export const SpeechSection = () => {
   return (
     <div
       id="speeches-section"
-      style={{ backgroundColor: themeColors.background }}
       className="mb-10 min-h-screen flex w-full items-center justify-center py-20 px-4 relative overflow-hidden"
     >
-      <div className="max-w-4xl w-full">
+      {/* Islamic pattern backgrounds - positioned at back with z-index */}
+      <div className="absolute inset-0" style={{ zIndex: 0 }}>
+        {/* Islamic pattern background as middle layer - full opacity */}
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/islamic-pattern.svg')] bg-repeat" />
+
+        {/* Light gradient overlay for content readability without hiding patterns */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F5F7FA]/50 via-[#F5F7FA]/40 to-[#F5F7FA]/50" />
+      </div>
+
+      <div className="max-w-4xl w-full relative" style={{ zIndex: 10 }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="text-center mb-16 relative"
+          style={{ zIndex: 10 }}
         >
           {/* Flower Speech Decoration */}
-          <div className="items-center justify-center flex -top-24 w-full h-40 -m-10 ml-1">
+          <div
+            className="items-center justify-center flex -top-24 w-full h-40 -m-10 ml-1 relative"
+            style={{ zIndex: 10 }}
+          >
             <Image
               src="/icons/flowerspeech.svg"
               alt="flower speech"
@@ -91,7 +103,7 @@ export const SpeechSection = () => {
           </div>
 
           <h2
-            style={{ color: themeColors.yellow }}
+            style={{ color: themeColors.yellow, opacity: 1 }}
             className="font-script text-4xl mb-4 tracking-wider relative z-10"
           >
             Ucapan
@@ -148,7 +160,7 @@ export const SpeechSection = () => {
                       {speech.imageUrl && (
                         <Dialog>
                           <DialogTrigger asChild>
-                            <div className="mb-4 h-48 w-full overflow-hidden rounded-lg cursor-pointer transition-transform hover:scale-105">
+                            <div className="mb-4 h-48 w-full overflow-hidden rounded-lg cursor-pointer transition-transform hover:scale-105 relative z-20">
                               <img
                                 src={speech.imageUrl}
                                 alt={`${speech.name}'s image`}
@@ -156,7 +168,7 @@ export const SpeechSection = () => {
                               />
                             </div>
                           </DialogTrigger>
-                          <DialogContent className="max-w-[95vw] max-h-[95vh] p-4 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                          <DialogContent className="max-w-[95vw] max-h-[95vh] p-4 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
                             <VisuallyHidden>
                               <DialogTitle>
                                 Gambar dari {speech.name}
@@ -190,8 +202,8 @@ export const SpeechSection = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
+              <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 z-20" />
+              <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 z-20" />
             </Carousel>
           </div>
         ) : (
@@ -217,7 +229,11 @@ export const SpeechSection = () => {
           transition={{ delay: 0.3, duration: 0.5 }}
           viewport={{ once: true }}
           onClick={handleWriteSpeech}
-          style={{ backgroundColor: themeColors.primary }}
+          style={{
+            backgroundColor: themeColors.primary,
+            position: "relative",
+            zIndex: 20,
+          }}
           className="mt-8 mx-auto block text-white px-8 py-3 rounded-full font-serif hover:bg-[#40916C] transition-colors"
         >
           Tulis Ucapan
