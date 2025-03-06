@@ -42,6 +42,7 @@ const Actionbar = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [imageBase64, setImageBase64] = useState<string | null>(null);
+  const [isCheckingStorage, setIsCheckingStorage] = useState(false);
 
   // helper function to copy text to clipboard
   const copyToClipboard = (text: string) => {
@@ -71,9 +72,43 @@ const Actionbar = () => {
     return item.type === "speech";
   };
 
+  // Function to check storage limit
+  const checkStorageLimit = async (): Promise<boolean> => {
+    setIsCheckingStorage(true);
+    try {
+      const response = await fetch("/api/storage");
+      if (!response.ok) {
+        throw new Error("Failed to check storage status");
+      }
+
+      const data = await response.json();
+
+      if (data.isLimitReached) {
+        toast({
+          title: "Had Simpanan Tercapai",
+          description: `Maaf, had simpanan 500MB telah tercapai. (${data.formattedUsage})`,
+          variant: "destructive",
+        });
+        return true;
+      }
+
+      return false;
+    } catch (error) {
+      console.error("Storage check error:", error);
+      return false;
+    } finally {
+      setIsCheckingStorage(false);
+    }
+  };
+
   // handle RSVP form submission
   const handleRSVPSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Check storage limit before submitting
+    const isLimitReached = await checkStorageLimit();
+    if (isLimitReached) return;
+
     setIsSubmitting(true);
 
     try {
@@ -164,6 +199,11 @@ const Actionbar = () => {
   // handle speech form submission
   const handleSpeechSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Check storage limit before submitting
+    const isLimitReached = await checkStorageLimit();
+    if (isLimitReached) return;
+
     setIsSubmitting(true);
 
     try {
@@ -225,7 +265,11 @@ const Actionbar = () => {
   };
 
   // Function to open speech form
-  const openSpeechForm = () => {
+  const openSpeechForm = async () => {
+    // Check storage limit first
+    const isLimitReached = await checkStorageLimit();
+    if (isLimitReached) return;
+
     const speechIndex = actionBar.findIndex(
       (item) => item.label.toLowerCase() === "ucapan"
     );
@@ -237,7 +281,11 @@ const Actionbar = () => {
   // Make the functions available globally
   React.useEffect(() => {
     if (typeof window !== "undefined") {
-      window.openRSVPForm = () => {
+      window.openRSVPForm = async () => {
+        // Check storage limit first
+        const isLimitReached = await checkStorageLimit();
+        if (isLimitReached) return;
+
         const rsvpIndex = actionBar.findIndex(
           (item) => item.label.toLowerCase() === "rsvp"
         );
