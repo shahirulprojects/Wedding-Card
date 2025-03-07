@@ -22,9 +22,6 @@ export default function HomeLayout({
 }) {
   return (
     <main className="flex flex-col min-h-screen">
-      <head>
-        <link rel="icon" href="/icons/websitelogo.svg" type="image/svg+xml" />
-      </head>
       <section className="flex-1">
         <div className="w-full">{children}</div>
       </section>
