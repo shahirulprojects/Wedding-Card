@@ -33,6 +33,7 @@ const Actionbar = () => {
   // state to manage copy feedback and forms
   const [copySuccess, setCopySuccess] = useState(false);
   const [showRSVPForm, setShowRSVPForm] = useState(false);
+  const [showRSVPNoConfirmation, setShowRSVPNoConfirmation] = useState(false);
   const [guestCount, setGuestCount] = useState(1);
   const [name, setName] = useState("");
   const [speechName, setSpeechName] = useState("");
@@ -145,6 +146,16 @@ const Actionbar = () => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  // handle RSVP decline confirmation
+  const handleRSVPDecline = () => {
+    toast({
+      title: "Terima kasih!",
+      description: "Kami telah merekodkan keputusan anda.",
+    });
+    setShowRSVPNoConfirmation(false);
+    setOpenPopoverIndex(null);
   };
 
   // Function to trigger confetti
@@ -483,7 +494,7 @@ const Actionbar = () => {
                     {/* RSVP content */}
                     {isRSVPContent(contentItem) && (
                       <div className="flex flex-col gap-4">
-                        {!showRSVPForm ? (
+                        {!showRSVPForm && !showRSVPNoConfirmation ? (
                           <>
                             <p
                               style={{ color: themeColors.text.secondary }}
@@ -507,12 +518,57 @@ const Actionbar = () => {
                                   borderColor: themeColors.primary,
                                   color: themeColors.primary,
                                 }}
-                                onClick={() => setShowRSVPForm(false)}
+                                onClick={() => setShowRSVPNoConfirmation(true)}
                               >
                                 Tidak
                               </Button>
                             </div>
                           </>
+                        ) : showRSVPNoConfirmation ? (
+                          <div className="flex flex-col gap-4">
+                            <div className="flex items-center gap-2">
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => setShowRSVPNoConfirmation(false)}
+                              >
+                                <ArrowLeft className="h-4 w-4" />
+                              </Button>
+                              <span
+                                style={{ color: themeColors.text.secondary }}
+                              >
+                                Kembali
+                              </span>
+                            </div>
+                            <p
+                              style={{ color: themeColors.text.secondary }}
+                              className="text-center mb-2"
+                            >
+                              Adakah anda pasti tidak dapat hadir ke majlis ini?
+                            </p>
+                            <div className="flex justify-center gap-4">
+                              <Button
+                                style={{ backgroundColor: themeColors.primary }}
+                                className="text-white hover:bg-opacity-90"
+                                onClick={handleRSVPDecline}
+                              >
+                                Ya, saya pasti
+                              </Button>
+                              <Button
+                                variant="outline"
+                                style={{
+                                  borderColor: themeColors.primary,
+                                  color: themeColors.primary,
+                                }}
+                                className="p-4"
+                                onClick={() => setShowRSVPNoConfirmation(false)}
+                              >
+                                Tidak, saya akan <br />
+                                fikir semula
+                              </Button>
+                            </div>
+                          </div>
                         ) : (
                           <form
                             onSubmit={handleRSVPSubmit}
