@@ -7,6 +7,7 @@ import { SpeechSection } from "@/components/speechsection";
 import TentativeSection from "@/components/tentativesection";
 import { themeColors } from "@/constants";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 const Home = () => {
@@ -58,6 +59,24 @@ const Home = () => {
                 className="absolute left-0 w-1/2 h-full shadow-2xl"
               >
                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-32 blur-sm" />
+                {/* Left half of logo */}
+                <motion.div
+                  className="absolute right-0 top-[28%] max-sm:top-[20%] overflow-hidden"
+                  style={{ width: "50px", height: "120px" }}
+                >
+                  <div
+                    className="relative"
+                    style={{ width: "100px", height: "120px", right: "0px" }}
+                  >
+                    <Image
+                      src="/icons/weddinglogo.png"
+                      alt="Wedding Logo Left"
+                      width={100}
+                      height={120}
+                      className="absolute"
+                    />
+                  </div>
+                </motion.div>
               </motion.div>
 
               {/* Right door */}
@@ -70,6 +89,24 @@ const Home = () => {
                 className="absolute right-0 w-1/2 h-full shadow-2xl"
               >
                 <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-32 blur-sm" />
+                {/* Right half of logo */}
+                <motion.div
+                  className="absolute left-0 top-[28%] max-sm:top-[20%] overflow-hidden"
+                  style={{ width: "50px", height: "120px" }}
+                >
+                  <div
+                    className="relative"
+                    style={{ width: "100px", height: "120px", left: "-50px" }}
+                  >
+                    <Image
+                      src="/icons/weddinglogo.png"
+                      alt="Wedding Logo Right"
+                      width={100}
+                      height={120}
+                      className="absolute"
+                    />
+                  </div>
+                </motion.div>
               </motion.div>
 
               {/* Center content */}
@@ -83,16 +120,18 @@ const Home = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
                   className="mb-8"
                 >
                   <h1
-                    style={{ color: themeColors.yellowtoo }}
-                    className="font-script text-5xl mb-4"
+                    style={{ color: themeColors.text.primary }}
+                    className="font-script text-5xl mb-4 mt-11 max-sm:mt-24"
                   >
                     Walimatul Urus
                   </h1>
-                  <p className="text-white/90 text-xl font-serif">
+                  <p
+                    style={{ color: themeColors.text.primary }}
+                    className="text-white/90 text-xl font-serif"
+                  >
                     Undangan Istimewa
                   </p>
                 </motion.div>

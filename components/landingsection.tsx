@@ -20,7 +20,7 @@ const LandingSection = () => {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
         style={{ backgroundColor: themeColors.container, zIndex: 10 }}
-        className="backdrop-blur-sm p-12 rounded-3xl shadow-lg max-w-2xl mx-4 relative"
+        className="  rounded-3xl shadow-lg  mx-4 relative"
       >
         {/* decorative ornament */}
         {/* <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -37,9 +37,17 @@ const LandingSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-center"
+          className="text-center flex-col flex justify-center items-center px-20 bg-[url('/icons/whiteflowerbg.png')] bg-no-repeat bg-center bg-cover"
         >
-          <h3 className="text-xl mb-6 tracking-wider">WALIMATUL URUS</h3>
+          <Image
+            src="/icons/weddinglogo.png"
+            alt="weddinglogo"
+            width={120}
+            height={60}
+          />
+          <h3 className="text-xl mb-6 tracking-wider font-bold text-yellow-500">
+            WALIMATUL URUS
+          </h3>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -54,7 +62,7 @@ const LandingSection = () => {
               {weddingInfo.brideAndGroom.groom}
             </h1>
             <span
-              style={{ color: themeColors.text.secondary }}
+              style={{ color: themeColors.text.primary }}
               className="font-serif text-2xl"
             >
               &
@@ -71,19 +79,19 @@ const LandingSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
-            className="mt-8 space-y-2"
+            className="flex flex-col py-4"
           >
             <p
-              style={{ color: themeColors.text.secondary }}
-              className="font-serif text-lg"
+              style={{ color: themeColors.text.primary }}
+              className="text-lg font-extrabold"
             >
               {weddingInfo.date.full}
             </p>
-            <p
-              style={{ color: themeColors.text.primary }}
-              className="font-serif text-lg"
-            >
+            <p style={{ color: themeColors.text.primary }} className="text-lg">
               {weddingInfo.venue.name}
+            </p>
+            <p style={{ color: themeColors.text.primary }} className="text-lg">
+              {weddingInfo.venue.address.line1}
             </p>
           </motion.div>
         </motion.div>

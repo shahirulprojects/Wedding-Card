@@ -43,17 +43,17 @@ export const weddingInfo = {
     hashtag: "#HishamDanFatin",
   },
   venue: {
-    name: "DEWAN ABC",
+    name: "Dewan Serbaguna",
     address: {
-      line1: "Bandar ABC,",
-      line2: "1234 Bandar ABC, Negeri ABC",
+      line1: "Feldajaya Utara",
+      line2: "Perak",
     },
-    fullAddress: "Dewan ABC, Bandar ABC, 1234 Bandar ABC, Negeri ABC",
+    fullAddress: "Dewan Serbaguna, Feldajaya Utara, Perak",
   },
   date: {
-    full: "Sabtu, 01 Februari 2025",
-    day: "01",
-    month: "02",
+    full: "31.05.2025 (Sabtu)",
+    day: "31",
+    month: "05",
     year: "2025",
     time: {
       start: "11:00 pagi",
@@ -74,33 +74,6 @@ export const weddingInfo = {
     endTime: "2025-02-01T16:00:00",
   },
 };
-
-// Guest Messages
-export const guestMessages: Message[] = [
-  {
-    message:
-      "Ya Allah Ya Rahman Ya Rahim, berkatilah majlis perkahwinan ini. Limpahkanlah baraqah dan rahmatMu kepada kedua mempelai ini. Kurniakanlah mereka kelak zuriat yang soleh dan solehah. Kekalkanlah jodoh mereka hingga ke jannah.",
-    hashtag: "#HishamDanFatin",
-  },
-  {
-    message:
-      "Selamat Pengantin Baru Fatin & Hisham. Semoga ikatan ini kekal hingga ke Jannah. Insyaallah . Congratulations ✨",
-    author: "Ain & Aiman",
-  },
-  {
-    message: "Selamat pengantin baru Fatin & Hisham 😊",
-    author: "Adan",
-  },
-  {
-    message:
-      "selamat pengantin baru Fatin & Hisham.. semoga bahagia sampai syurga ❤️",
-    author: "kak fatin aina",
-  },
-  {
-    message: "congrats both of you Fatin & Hisham love u",
-    author: "syikin",
-  },
-];
 
 // Action Bar Items
 export const actionBar: ActionBarItem[] = [
@@ -159,18 +132,18 @@ export const actionBar: ActionBarItem[] = [
 
 // Theme Colors
 export const themeColors = {
-  primary: "#012169",
+  primary: "#ffff",
   accent: "#6B8DBF",
   background: "#F5F7FA",
   container: "#FFFFFF",
   yellow: "#4A6FA5",
   yellowtoo: "#F5F7FA",
   text: {
-    primary: "#012169",
+    primary: "#2e1f12",
     secondary: "#5B7BA3",
   },
   actionBar: {
-    background: "#012169",
+    background: "#2e1f12",
     text: "#FFFFFF",
     border: "#6B8DBF",
   },
