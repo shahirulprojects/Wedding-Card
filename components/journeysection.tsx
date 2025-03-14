@@ -1,6 +1,6 @@
 import { loveJourney, themeColors } from "@/constants";
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -23,6 +23,62 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+
+// custom hook to check if image is horizontal
+const useImageOrientation = (src: string) => {
+  const [isHorizontal, setIsHorizontal] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!src) return;
+
+    const img = new window.Image();
+    img.onload = () => {
+      // if width is greater than height, it's horizontal
+      setIsHorizontal(img.width > img.height);
+      setIsLoaded(true);
+    };
+    img.src = src;
+  }, [src]);
+
+  return { isHorizontal, isLoaded };
+};
+
+interface ImageWithOrientationProps {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  className?: string;
+}
+
+const ImageWithOrientation: React.FC<ImageWithOrientationProps> = ({
+  src,
+  alt,
+  width,
+  height,
+  className = "",
+}) => {
+  const { isHorizontal, isLoaded } = useImageOrientation(src);
+
+  return (
+    <div
+      className={`relative flex items-center justify-center w-full ${
+        isHorizontal ? "h-full" : ""
+      }`}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className={`${className} ${
+          isHorizontal ? "object-contain max-h-full" : "object-contain h-full"
+        }`}
+      />
+    </div>
+  );
+};
 
 const JourneySection = () => {
   return (
@@ -64,16 +120,16 @@ const JourneySection = () => {
                               key={`${journey.title}-${index}`}
                               className="pl-1 md:basis-1/2 lg:basis-full"
                             >
-                              <div className="p-1">
+                              <div className="p-1 h-full flex items-center justify-center">
                                 <Dialog>
                                   <DialogTrigger asChild>
-                                    <div className="flex justify-center items-center cursor-pointer transition-transform hover:scale-105 relative z-20">
-                                      <Image
+                                    <div className="flex justify-center items-center cursor-pointer transition-transform hover:scale-105 relative z-20 h-full">
+                                      <ImageWithOrientation
                                         src={image}
                                         alt={journey.title}
                                         width={290}
                                         height={290}
-                                        className="object-contain h-full rounded-lg"
+                                        className="rounded-lg"
                                       />
                                     </div>
                                   </DialogTrigger>

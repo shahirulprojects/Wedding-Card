@@ -161,6 +161,20 @@ export const loveJourney = [
     ],
   },
   {
+    title: "PENYESUAIAN PAKAIAN PERKAHWINAN",
+    date: "15 Februari 2025",
+    imgUrl: [
+      // "/icons/tunang1.jpeg",
+      "/icons/fitting1.jpeg",
+      "/icons/fitting2.jpeg",
+      // "/icons/tunang4.jpg",
+    ],
+    descriptions: [
+      "Pihak perempuan bertolak dari Pahang ke Kuala Lumpur pada 14 Februari 2025 untuk bermalam.",
+      "Keesokan harinya, mereka bertolak dari Kuala Lumpur ke MySanding Bridal di Slim River untuk penyesuaian pakaian perkahwinan.",
+    ],
+  },
+  {
     title: "PERNIKAHAN",
     date: "To be continued...",
     imgUrl: ["/icons/ayahcartoon.jpg", "/icons/ibucartoon.jpg"],
