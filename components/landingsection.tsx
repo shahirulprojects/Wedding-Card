@@ -40,8 +40,8 @@ const LandingSection = () => {
           className="text-center flex-col flex justify-center items-center px-20 bg-[url('/icons/whiteflowerbg.png')] bg-no-repeat bg-center bg-cover"
         >
           <Image
-            src="/icons/weddinglogo.png"
-            alt="weddinglogo"
+            src="/icons/weddinglogowhite.png"
+            alt="weddinglogowhite"
             width={120}
             height={60}
           />

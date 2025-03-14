@@ -113,42 +113,13 @@ END:VCALENDAR`;
         className="max-w-4xl w-full relative bg-[url('/icons/brownflowerbg2.png')] bg-no-repeat bg-cover p-11 rounded-3xl "
         style={{ backgroundColor: themeColors.primary, zIndex: 10 }}
       >
-        {/* Flower decorations container - positioned absolutely */}
-        <div
-          className="absolute bottom-0 left-0 right-0 w-full flex justify-between overflow-hidden"
-          style={{ zIndex: 5 }}
-        >
-          {/* Left flower */}
-          <div>
-            <Image
-              src="/icons/brownflowerbg1left.png"
-              alt="Decorative flower left"
-              width={300}
-              height={200}
-              className="h-auto object-contain"
-              style={{
-                maxHeight: "180px",
-                objectPosition: "bottom left",
-              }}
-            />
-          </div>
-
-          {/* Right flower - flipped horizontally */}
-          <div className="flex justify-end">
-            <Image
-              src="/icons/brownflowerbg1right.png"
-              alt="Decorative flower right"
-              width={300}
-              height={200}
-              className="h-auto object-contain"
-              style={{
-                maxHeight: "180px",
-                objectPosition: "bottom right",
-              }}
-            />
-          </div>
-        </div>
-
+        <Image
+          src="/icons/weddinglogobrown.png"
+          alt="Website Logo"
+          width={150}
+          height={150}
+          className="mx-auto mt-[-35px]"
+        />
         <div className="text-center mb-4 relative" style={{ zIndex: 10 }}>
           <h2
             style={{ color: themeColors.text.third }}
@@ -308,6 +279,42 @@ END:VCALENDAR`;
             RSVP
           </motion.button>
         </div> */}
+
+        {/* Flower decorations container - positioned absolutely */}
+        <div
+          className="absolute bottom-0 left-0 right-0 w-full flex justify-between overflow-hidden"
+          style={{ zIndex: 5 }}
+        >
+          {/* Left flower */}
+          <div>
+            <Image
+              src="/icons/brownflowerbg1left.png"
+              alt="Decorative flower left"
+              width={300}
+              height={200}
+              className="h-auto object-contain"
+              style={{
+                maxHeight: "180px",
+                objectPosition: "bottom left",
+              }}
+            />
+          </div>
+
+          {/* Right flower - flipped horizontally */}
+          <div className="flex justify-end">
+            <Image
+              src="/icons/brownflowerbg1right.png"
+              alt="Decorative flower right"
+              width={300}
+              height={200}
+              className="h-auto object-contain"
+              style={{
+                maxHeight: "180px",
+                objectPosition: "bottom right",
+              }}
+            />
+          </div>
+        </div>
       </motion.div>
     </div>
   );

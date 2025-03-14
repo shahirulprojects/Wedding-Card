@@ -1,25 +1,41 @@
-import type { Metadata } from "next";
-import React from "react";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Raikan Hisham & Fatin",
-  description:
-    "Dengan penuh kesyukuran dan kegembiraan, kami menjemput tuan/puan untuk meraikan perkahwinan Hisham dan Fatin.",
-  icons: {
-    icon: [
-      {
-        url: "/icons/websitelogo.svg",
-        type: "image/svg+xml",
-      },
-    ],
-  },
-};
+import React, { useEffect } from "react";
+import { initializeScreenProtection } from "@/lib/screenProtection";
 
 export default function HomeLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  useEffect(() => {
+    initializeScreenProtection({
+      watermarkText: "", // Empty string to disable watermark
+      preventSelection: true,
+      preventRightClick: true,
+      preventKeyboardShortcuts: true,
+      preventDrag: true,
+      detectTools: true,
+      preventIframe: true,
+      onScreenshotAttempt: () => {
+        // Handle screenshot attempt
+        console.log("Screenshot attempt detected in layout");
+      },
+    });
+
+    const handleBeforePrint = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      alert("Printing is disabled on this website.");
+      return false;
+    };
+
+    window.addEventListener("beforeprint", handleBeforePrint);
+
+    return () => {
+      window.removeEventListener("beforeprint", handleBeforePrint);
+    };
+  }, []);
+
   return (
     <main className="flex flex-col min-h-screen">
       <section className="flex-1">

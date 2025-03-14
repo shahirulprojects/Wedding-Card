@@ -2,6 +2,7 @@
 import HomeLayout from "@/app/(root)/(home)/layout";
 import Actionbar from "@/components/actionbar";
 import DetailSection from "@/components/detailsection";
+import JourneySection from "@/components/journeysection";
 import LandingSection from "@/components/landingsection";
 import { SpeechSection } from "@/components/speechsection";
 import TentativeSection from "@/components/tentativesection";
@@ -9,11 +10,28 @@ import { themeColors } from "@/constants";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
+import { useScreenProtection } from "@/hooks/useScreenProtection";
+import { useToast } from "@/hooks/use-toast";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showActionBar, setShowActionBar] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const { toast } = useToast();
+
+  // Initialize screen protection with custom warning but no watermark
+  const { isScreenshotAttempted } = useScreenProtection({
+    watermarkText: "", // Empty string to disable watermark
+    onScreenshotAttempt: () => {
+      toast({
+        title: "Screenshot Dikesan",
+        description:
+          "Maaf, kamu tidak dibenarkan untuk mengambil screenshot atas sebab privasi.",
+        variant: "destructive",
+        duration: 5000,
+      });
+    },
+  });
 
   // Handle scroll to show/hide action bar
   useEffect(() => {
@@ -56,7 +74,7 @@ const Home = () => {
                 exit={{ x: "-100%" }}
                 transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
                 style={{ backgroundColor: themeColors.container }}
-                className="absolute left-0 w-1/2 h-full shadow-2xl"
+                className="absolute left-0 w-1/2 h-full shadow-xl"
               >
                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-32 blur-sm" />
                 {/* Left half of logo */}
@@ -69,7 +87,7 @@ const Home = () => {
                     style={{ width: "100px", height: "120px", right: "0px" }}
                   >
                     <Image
-                      src="/icons/weddinglogo.png"
+                      src="/icons/weddinglogowhite.png"
                       alt="Wedding Logo Left"
                       width={100}
                       height={120}
@@ -86,7 +104,7 @@ const Home = () => {
                 exit={{ x: "100%" }}
                 transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
                 style={{ backgroundColor: themeColors.container }}
-                className="absolute right-0 w-1/2 h-full shadow-2xl"
+                className="absolute right-0 w-1/2 h-full shadow-xl"
               >
                 <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-32 blur-sm" />
                 {/* Right half of logo */}
@@ -99,7 +117,7 @@ const Home = () => {
                     style={{ width: "100px", height: "120px", left: "-50px" }}
                   >
                     <Image
-                      src="/icons/weddinglogo.png"
+                      src="/icons/weddinglogowhite.png"
                       alt="Wedding Logo Right"
                       width={100}
                       height={120}
@@ -156,6 +174,30 @@ const Home = () => {
           )}
         </AnimatePresence>
 
+        {/* Screenshot warning overlay */}
+        {isScreenshotAttempted && (
+          <div className="fixed inset-0 bg-black/80 z-[2000] flex items-center justify-center screenshot-warning">
+            <div
+              className="bg-white p-8 rounded-lg max-w-md text-center screenshot-warning"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h2 className="text-2xl font-bold mb-4">Screenshot Dikesan</h2>
+              <p className="mb-6">
+                Maaf, kamu tidak dibenarkan untuk mengambil screenshot atas
+                sebab privasi.
+              </p>
+              <button
+                className="px-4 py-2 bg-primary text-white rounded-md cursor-pointer hover:bg-primary/90 screenshot-warning"
+                onClick={() => {
+                  window.location.reload();
+                }}
+              >
+                Kembali ke halaman utama
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Main content */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -169,6 +211,7 @@ const Home = () => {
             <div className="relative">
               <LandingSection />
               <DetailSection />
+              <JourneySection />
               {/* <TentativeSection /> */}
               <SpeechSection />
             </div>

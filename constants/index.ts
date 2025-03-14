@@ -145,6 +145,35 @@ export const actionBar: ActionBarItem[] = [
   },
 ];
 
+export const loveJourney = [
+  {
+    title: "PERTUNANGAN",
+    date: "7 Julai 2024",
+    imgUrl: [
+      // "/icons/tunang1.jpeg",
+      "/icons/tunang2.jpeg",
+      "/icons/tunang3.jpg",
+      // "/icons/tunang4.jpg",
+    ],
+    descriptions: [
+      "Rombongan pihak lelaki bergerak ke Kuantan, Pahang pada 6 Julai 2024 dan bermalam di homestay.",
+      "Majlis pertunangan berlangsung pada 7 Julai 2024 di rumah pihak perempuan.",
+    ],
+  },
+  {
+    title: "PERNIKAHAN",
+    date: "To be continued...",
+    imgUrl: ["/icons/ayahcartoon.jpg", "/icons/ibucartoon.jpg"],
+    description: "",
+  },
+  {
+    title: "PERKAHWINAN",
+    date: "To be continued...",
+    imgUrl: ["/icons/atukcartoon.jpg"],
+    description: "",
+  },
+];
+
 // Theme Colors
 export const themeColors = {
   primary: "#2e1f12", // dark brown
