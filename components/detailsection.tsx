@@ -113,7 +113,43 @@ END:VCALENDAR`;
         className="max-w-4xl w-full relative bg-[url('/icons/brownflowerbg2.png')] bg-no-repeat bg-cover p-11 rounded-3xl "
         style={{ backgroundColor: themeColors.primary, zIndex: 10 }}
       >
-        <div className="text-center mb-4">
+        {/* Flower decorations container - positioned absolutely */}
+        <div
+          className="absolute bottom-0 left-0 right-0 w-full flex justify-between overflow-hidden"
+          style={{ zIndex: 5 }}
+        >
+          {/* Left flower */}
+          <div>
+            <Image
+              src="/icons/brownflowerbg1left.png"
+              alt="Decorative flower left"
+              width={300}
+              height={200}
+              className="h-auto object-contain"
+              style={{
+                maxHeight: "180px",
+                objectPosition: "bottom left",
+              }}
+            />
+          </div>
+
+          {/* Right flower - flipped horizontally */}
+          <div className="flex justify-end">
+            <Image
+              src="/icons/brownflowerbg1right.png"
+              alt="Decorative flower right"
+              width={300}
+              height={200}
+              className="h-auto object-contain"
+              style={{
+                maxHeight: "180px",
+                objectPosition: "bottom right",
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="text-center mb-4 relative" style={{ zIndex: 10 }}>
           <h2
             style={{ color: themeColors.text.third }}
             className="font-extrabold text-4xl mb-2"
@@ -131,8 +167,8 @@ END:VCALENDAR`;
               style={{ color: themeColors.text.third }}
               className="font-serif italic text-xl"
             >
-              Tan Sri/Puan Sri/ Dato’ Seri/ Datin Seri/
-              Dato’/Datin/Tuan/Puan/Cik
+              Tan Sri/Puan Sri/ Dato' Seri/ Datin Seri/
+              Dato'/Datin/Tuan/Puan/Cik
             </span>{" "}
             <br />
             ke Majlis Perkahwinan Putera Sulung kami yang dikasihi
@@ -160,6 +196,8 @@ END:VCALENDAR`;
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
           viewport={{ once: true }}
+          className="relative"
+          style={{ zIndex: 10 }}
         >
           <p
             style={{ color: themeColors.text.third }}
@@ -176,13 +214,15 @@ END:VCALENDAR`;
 
         <div
           style={{ backgroundColor: themeColors.secondary }}
-          className="w-1/2 h-1 flex mx-auto rounded-xl"
+          className="w-1/2 h-1 flex mx-auto rounded-xl relative z-10"
         />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
           viewport={{ once: true }}
+          className="relative"
+          style={{ zIndex: 10 }}
         >
           <p
             style={{ color: themeColors.text.third }}
@@ -204,13 +244,15 @@ END:VCALENDAR`;
         </motion.div>
         <div
           style={{ backgroundColor: themeColors.secondary }}
-          className="w-1/2 h-1 flex mx-auto rounded-xl"
+          className="w-1/2 h-1 flex mx-auto rounded-xl relative z-10"
         />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
           viewport={{ once: true }}
+          className="relative"
+          style={{ zIndex: 10 }}
         >
           <p
             style={{ color: themeColors.text.third }}

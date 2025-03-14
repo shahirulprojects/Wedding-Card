@@ -169,7 +169,7 @@ const Home = () => {
             <div className="relative">
               <LandingSection />
               <DetailSection />
-              <TentativeSection />
+              {/* <TentativeSection /> */}
               <SpeechSection />
             </div>
           </div>

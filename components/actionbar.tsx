@@ -312,7 +312,7 @@ const Actionbar = () => {
   return (
     <div
       style={{ backgroundColor: themeColors.actionBar.background }}
-      className="fixed bottom-0 left-0 right-0 shadow-lg z-[1000]"
+      className="fixed bottom-0 left-0 right-0 shadow-lg z-[1000] border-t-2 border-white"
     >
       <div className="flex justify-around items-center p-4 max-w-7xl mx-auto">
         {actionBar.map((item, index) => (
