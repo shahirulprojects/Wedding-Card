@@ -102,13 +102,13 @@ export const SpeechSection = () => {
           </div>
 
           <h2
-            style={{ color: themeColors.yellow, opacity: 1 }}
+            style={{ color: themeColors.text.primary, opacity: 1 }}
             className="font-script text-4xl mb-4 tracking-wider relative z-10"
           >
             Ucapan
           </h2>
           <div
-            style={{ backgroundColor: themeColors.accent }}
+            style={{ backgroundColor: themeColors.primary }}
             className="w-32 h-1 mx-auto rounded-full"
           />
         </motion.div>

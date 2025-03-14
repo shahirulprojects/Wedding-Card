@@ -21,11 +21,11 @@ const TimelineItem = ({ time, event }: { time: string; event: string }) => (
     </div>
     <div className="relative">
       <div
-        style={{ backgroundColor: themeColors.accent }}
+        style={{ backgroundColor: themeColors.container }}
         className="w-4 h-4 rounded-full absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2"
       />
       <div
-        style={{ backgroundColor: themeColors.accent }}
+        style={{ backgroundColor: themeColors.container }}
         className="w-0.5 h-full absolute left-0 top-0 -translate-x-1/2"
       />
     </div>
@@ -61,13 +61,13 @@ const TentativeSection = () => {
           style={{ zIndex: 10 }}
         >
           <h2
-            style={{ color: themeColors.yellow, opacity: 1 }}
+            style={{ color: themeColors.text.primary, opacity: 1 }}
             className="font-script text-4xl mb-4 tracking-wider"
           >
             Aturcara Majlis
           </h2>
           <div
-            style={{ backgroundColor: themeColors.accent }}
+            style={{ backgroundColor: themeColors.container }}
             className="w-32 h-1 mx-auto rounded-full"
           />
         </motion.div>

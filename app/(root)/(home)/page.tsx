@@ -36,7 +36,7 @@ const Home = () => {
       <div className="relative w-full">
         {/* Base background */}
         <div
-          style={{ backgroundColor: themeColors.background }}
+          style={{ backgroundColor: themeColors.container }}
           className="fixed inset-0 overflow-hidden"
         >
           {/* No gradient overlay */}
@@ -55,7 +55,7 @@ const Home = () => {
                 animate={{ x: isOpen ? "-100%" : 0 }}
                 exit={{ x: "-100%" }}
                 transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
-                style={{ backgroundColor: themeColors.primary }}
+                style={{ backgroundColor: themeColors.container }}
                 className="absolute left-0 w-1/2 h-full shadow-2xl"
               >
                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-32 blur-sm" />
@@ -85,7 +85,7 @@ const Home = () => {
                 animate={{ x: isOpen ? "100%" : 0 }}
                 exit={{ x: "100%" }}
                 transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
-                style={{ backgroundColor: themeColors.primary }}
+                style={{ backgroundColor: themeColors.container }}
                 className="absolute right-0 w-1/2 h-full shadow-2xl"
               >
                 <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-32 blur-sm" />

@@ -110,28 +110,49 @@ END:VCALENDAR`;
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="max-w-4xl w-full relative"
-        style={{ zIndex: 10 }}
+        className="max-w-4xl w-full relative bg-[url('/icons/brownflowerbg2.png')] bg-no-repeat bg-cover p-11 rounded-3xl "
+        style={{ backgroundColor: themeColors.primary, zIndex: 10 }}
       >
-        <div className="text-center mb-12">
+        <div className="text-center mb-4">
           <h2
-            style={{ color: themeColors.yellow }}
-            className="font-script text-4xl mb-2"
+            style={{ color: themeColors.text.third }}
+            className="font-extrabold text-4xl mb-2"
           >
-            Walimatul Urus
+            AMAN SHAH BIN IDRIS <br />
+            & <br />
+            SITI SHAHIDA BINTI ABDULLAH
           </h2>
-          <p style={{ color: themeColors.text.primary }} className="font-serif">
-            Dengan penuh kesyukuran, kami mempersilakan
-          </p>
           <p
-            style={{ color: themeColors.text.primary }}
-            className="font-serif italic"
+            style={{ color: themeColors.text.third }}
+            className="font-serif text-xl m-6"
           >
-            Dato' | Datin | Tuan | Puan | Encik | Cik
+            Dengan segala hormatnya mempersilakan <br />
+            <span
+              style={{ color: themeColors.text.third }}
+              className="font-serif italic text-xl"
+            >
+              Tan Sri/Puan Sri/ Dato’ Seri/ Datin Seri/
+              Dato’/Datin/Tuan/Puan/Cik
+            </span>{" "}
+            <br />
+            ke Majlis Perkahwinan Putera Sulung kami yang dikasihi
           </p>
-          <p style={{ color: themeColors.text.primary }} className="font-serif">
-            seisi keluarga hadir ke majlis perkahwinan anakanda kami
+
+          <h1
+            style={{ color: themeColors.text.fourth }}
+            className="font-script text-4xl"
+          >
+            Shahirul Hisham bin Aman Shah
+          </h1>
+          <p style={{ color: themeColors.text.third }} className="m-4 text-xl">
+            dengan pilihan hatinya
           </p>
+          <h1
+            style={{ color: themeColors.text.fourth }}
+            className="font-script text-4xl"
+          >
+            Ummu Fatin Hidayah binti Khatib Zur
+          </h1>
         </div>
 
         <motion.div
@@ -139,74 +160,79 @@ END:VCALENDAR`;
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
           viewport={{ once: true }}
-          style={{ backgroundColor: themeColors.container }}
-          className="backdrop-blur-sm p-8 rounded-2xl shadow-lg mb-8"
         >
-          <h3
-            style={{ color: themeColors.text.primary }}
+          <p
+            style={{ color: themeColors.text.third }}
             className="font-serif text-xl mb-4 text-center"
           >
-            TEMPAT
-          </h3>
-          <div className="text-center space-y-2">
-            <p
-              style={{ color: themeColors.text.secondary }}
-              className="font-serif text-lg"
-            >
-              {weddingInfo.venue.name}
-            </p>
-            <p
-              style={{ color: themeColors.text.secondary }}
-              className="font-serif"
-            >
-              {weddingInfo.venue.address.line1}
-            </p>
-            <p
-              style={{ color: themeColors.text.secondary }}
-              className="font-serif"
-            >
-              {weddingInfo.venue.address.line2}
-            </p>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          viewport={{ once: true }}
-          style={{ backgroundColor: themeColors.container }}
-          className="backdrop-blur-sm p-8 rounded-2xl shadow-lg"
-        >
-          <h3
-            style={{ color: themeColors.text.primary }}
-            className="font-serif text-xl mb-4 text-center"
-          >
-            TARIKH
-          </h3>
-          <div className="text-center space-y-2">
-            <p
-              style={{ color: themeColors.text.secondary }}
-              className="font-serif text-lg"
-            >
-              {weddingInfo.date.full}
-            </p>
-            <p
-              style={{ color: themeColors.text.secondary }}
-              className="font-serif"
-            >
-              MASA
-            </p>
-            <p
-              style={{ color: themeColors.text.secondary }}
-              className="font-serif"
-            >
-              {weddingInfo.date.time.start} - {weddingInfo.date.time.end}
-            </p>
-          </div>
+            pada <br />
+            <span className="font-bold">{weddingInfo.date.datefull}</span>{" "}
+            <br />
+            bertempat di
+            <br />
+            <span className="font-bold">{weddingInfo.venue.fullAddress}</span>
+          </p>
         </motion.div>
 
         <div
+          style={{ backgroundColor: themeColors.secondary }}
+          className="w-1/2 h-1 flex mx-auto rounded-xl"
+        />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <p
+            style={{ color: themeColors.text.third }}
+            className="font-serif text-xl m-4 text-center font-bold"
+          >
+            ATURCARA MAJLIS <br />
+            Jamuan Makan
+            <br />
+            <span className="font-normal">11.00 pagi-4.00 petang</span>
+          </p>
+          <p
+            style={{ color: themeColors.text.third }}
+            className="font-serif text-xl m-4 text-center font-bold"
+          >
+            Ketibaan pengantin
+            <br />
+            <span className="font-normal">12.00 tengah hari</span>
+          </p>
+        </motion.div>
+        <div
+          style={{ backgroundColor: themeColors.secondary }}
+          className="w-1/2 h-1 flex mx-auto rounded-xl"
+        />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <p
+            style={{ color: themeColors.text.third }}
+            className="font-serif text-xl m-4 text-center font-bold"
+          >
+            UNTUK DIHUBUNGI
+          </p>
+          <p
+            style={{ color: themeColors.text.third }}
+            className="font-serif text-xl m-4 text-center font-bold"
+          >
+            {weddingInfo.contact.contact1.name} :{" "}
+            {weddingInfo.contact.contact1.number}
+            <br />
+            {weddingInfo.contact.contact2.name} :{" "}
+            {weddingInfo.contact.contact2.number}
+            <br />
+            {weddingInfo.contact.contact3.name} :{" "}
+            {weddingInfo.contact.contact3.number}
+          </p>
+        </motion.div>
+        {/* <div
           className="flex flex-col sm:flex-row gap-4 justify-center mt-8 relative"
           style={{ zIndex: 20 }}
         >
@@ -239,7 +265,7 @@ END:VCALENDAR`;
           >
             RSVP
           </motion.button>
-        </div>
+        </div> */}
       </motion.div>
     </div>
   );

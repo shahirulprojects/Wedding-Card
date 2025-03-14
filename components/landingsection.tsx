@@ -45,7 +45,10 @@ const LandingSection = () => {
             width={120}
             height={60}
           />
-          <h3 className="text-xl mb-6 tracking-wider font-bold text-yellow-500">
+          <h3
+            style={{ color: themeColors.text.fourth }}
+            className="text-xl mb-6 tracking-wider font-bold"
+          >
             WALIMATUL URUS
           </h3>
 
@@ -82,15 +85,15 @@ const LandingSection = () => {
             className="flex flex-col py-4"
           >
             <p
-              style={{ color: themeColors.text.primary }}
+              style={{ color: themeColors.text.fourth }}
               className="text-lg font-extrabold"
             >
-              {weddingInfo.date.full}
+              {weddingInfo.date.date}
             </p>
-            <p style={{ color: themeColors.text.primary }} className="text-lg">
+            <p style={{ color: themeColors.text.fourth }} className="text-lg">
               {weddingInfo.venue.name}
             </p>
-            <p style={{ color: themeColors.text.primary }} className="text-lg">
+            <p style={{ color: themeColors.text.fourth }} className="text-lg">
               {weddingInfo.venue.address.line1}
             </p>
           </motion.div>

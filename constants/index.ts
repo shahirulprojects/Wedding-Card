@@ -51,13 +51,28 @@ export const weddingInfo = {
     fullAddress: "Dewan Serbaguna, Feldajaya Utara, Perak",
   },
   date: {
-    full: "31.05.2025 (Sabtu)",
+    date: "31.05.2025 (Sabtu)",
+    datefull: "31 Mei 2025 (Sabtu) bersamaan 4 Zulhijjah 1446H",
     day: "31",
     month: "05",
     year: "2025",
     time: {
       start: "11:00 pagi",
       end: "4:00 petang",
+    },
+  },
+  contact: {
+    contact1: {
+      name: "Aman",
+      number: "010-4038185",
+    },
+    contact2: {
+      name: "Shida",
+      number: "019-3275524",
+    },
+    contact3: {
+      name: "Fikri",
+      number: "013-2582717",
     },
   },
   schedule: [
@@ -132,19 +147,20 @@ export const actionBar: ActionBarItem[] = [
 
 // Theme Colors
 export const themeColors = {
-  primary: "#ffff",
-  accent: "#6B8DBF",
-  background: "#F5F7FA",
-  container: "#FFFFFF",
-  yellow: "#4A6FA5",
-  yellowtoo: "#F5F7FA",
+  primary: "#2e1f12", // dark brown
+  secondary: "#bf852e", // warm brown
+  background: "#F5F7FA", // very light gray
+  container: "#FFFFFF", // white
+
   text: {
-    primary: "#2e1f12",
-    secondary: "#5B7BA3",
+    primary: "#2e1f12", // dark brown
+    secondary: "#5B7BA3", // soft blue
+    third: "#ffff", // white
+    fourth: "#bf852e", // warm brown
   },
   actionBar: {
-    background: "#2e1f12",
-    text: "#FFFFFF",
-    border: "#6B8DBF",
+    background: "#2e1f12", // dark brown
+    text: "#FFFFFF", // white
+    border: "#6B8DBF", // light blue
   },
 };
