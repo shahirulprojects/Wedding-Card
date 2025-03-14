@@ -10,28 +10,11 @@ import { themeColors } from "@/constants";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { useScreenProtection } from "@/hooks/useScreenProtection";
-import { useToast } from "@/hooks/use-toast";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showActionBar, setShowActionBar] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
-  const { toast } = useToast();
-
-  // Initialize screen protection with custom warning but no watermark
-  const { isScreenshotAttempted } = useScreenProtection({
-    watermarkText: "", // Empty string to disable watermark
-    onScreenshotAttempt: () => {
-      toast({
-        title: "Screenshot Dikesan",
-        description:
-          "Maaf, kamu tidak dibenarkan untuk mengambil screenshot atas sebab privasi.",
-        variant: "destructive",
-        duration: 5000,
-      });
-    },
-  });
 
   // Handle scroll to show/hide action bar
   useEffect(() => {
@@ -173,30 +156,6 @@ const Home = () => {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Screenshot warning overlay */}
-        {isScreenshotAttempted && (
-          <div className="fixed inset-0 bg-black/80 z-[2000] flex items-center justify-center screenshot-warning">
-            <div
-              className="bg-white p-8 rounded-lg max-w-md text-center screenshot-warning"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <h2 className="text-2xl font-bold mb-4">Screenshot Dikesan</h2>
-              <p className="mb-6">
-                Maaf, kamu tidak dibenarkan untuk mengambil screenshot atas
-                sebab privasi.
-              </p>
-              <button
-                className="px-4 py-2 bg-primary text-white rounded-md cursor-pointer hover:bg-primary/90 screenshot-warning"
-                onClick={() => {
-                  window.location.reload();
-                }}
-              >
-                Kembali ke halaman utama
-              </button>
-            </div>
-          </div>
-        )}
 
         {/* Main content */}
         <motion.div
