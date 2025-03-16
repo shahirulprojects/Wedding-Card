@@ -82,7 +82,7 @@ const ImageWithOrientation: React.FC<ImageWithOrientationProps> = ({
 
 const JourneySection = () => {
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center py-20 px-4 relative overflow-hidden">
+    <div className="w-full flex flex-col items-center justify-center py-20 px-4 relative overflow-hidden">
       {/* Islamic pattern backgrounds - positioned at back with z-index */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
         {/* Islamic pattern background as middle layer - full opacity */}
@@ -102,23 +102,34 @@ const JourneySection = () => {
         className="w-32 h-1 mx-auto rounded-full"
       />
       <div className="flex justify-center items-center mt-6 slide-from-right">
-        <Carousel className="w-full max-w-xl max-sm:max-w-xs">
+        <Carousel
+          className="w-full max-w-xl max-sm:max-w-xs"
+          opts={{
+            align: "start",
+            slidesToScroll: 1,
+            containScroll: "trimSnaps",
+          }}
+        >
           <CarouselContent className="-ml-1">
             {loveJourney.map((journey) => (
-              <CarouselItem
-                key={journey.title}
-                className="pl-1 md:basis-1/2 lg:basis-full"
-              >
+              <CarouselItem key={journey.title} className="pl-1 basis-full">
                 <div className="p-1">
-                  <Card>
+                  <Card className="border border-[#C49D83]">
                     <CardContent className="flex-col aspect-square items-center justify-center p-6">
                       {/* Nested Carousel for Images */}
-                      <CarouselImage className="w-full relative">
+                      <CarouselImage
+                        className="w-full relative"
+                        opts={{
+                          align: "start",
+                          slidesToScroll: 1,
+                          containScroll: "trimSnaps",
+                        }}
+                      >
                         <CarouselContentImage className="-ml-1">
                           {journey.imgUrl?.map((image, index) => (
                             <CarouselItemImage
                               key={`${journey.title}-${index}`}
-                              className="pl-1 md:basis-1/2 lg:basis-full"
+                              className="pl-1 basis-full"
                             >
                               <div className="p-1 h-full flex items-center justify-center">
                                 <Dialog>

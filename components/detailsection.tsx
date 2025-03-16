@@ -96,7 +96,7 @@ END:VCALENDAR`;
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center py-20 px-4 relative overflow-hidden">
+    <div className="min-h-screen w-full flex flex-col items-center justify-center py-20 px-4 relative overflow-hidden">
       {/* Islamic pattern backgrounds - positioned at back with z-index */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
         {/* Islamic pattern background as middle layer - full opacity */}
@@ -125,9 +125,11 @@ END:VCALENDAR`;
             style={{ color: themeColors.text.third }}
             className="font-extrabold text-4xl mb-2"
           >
-            AMAN SHAH BIN IDRIS <br />
+            AMAN SHAH <br />
+            BIN IDRIS <br />
             & <br />
-            SITI SHAHIDA BINTI ABDULLAH
+            SITI SHAHIDA <br />
+            BINTI ABDULLAH
           </h2>
           <p
             style={{ color: themeColors.text.third }}
@@ -139,17 +141,21 @@ END:VCALENDAR`;
               className="font-serif italic text-xl"
             >
               Tan Sri/Puan Sri/ Dato' Seri/ Datin Seri/
+              <br />
               Dato'/Datin/Tuan/Puan/Cik
+              <br />
             </span>{" "}
             <br />
-            ke Majlis Perkahwinan Putera Sulung kami yang dikasihi
+            ke Majlis Perkahwinan Putera Sulung
+            <br /> kami yang dikasihi
           </p>
 
           <h1
             style={{ color: themeColors.text.fourth }}
             className="font-script text-4xl"
           >
-            Shahirul Hisham bin Aman Shah
+            Shahirul Hisham <br />
+            bin Aman Shah
           </h1>
           <p style={{ color: themeColors.text.third }} className="m-4 text-xl">
             dengan pilihan hatinya
@@ -158,7 +164,8 @@ END:VCALENDAR`;
             style={{ color: themeColors.text.fourth }}
             className="font-script text-4xl"
           >
-            Ummu Fatin Hidayah binti Khatib Zur
+            Ummu Fatin Hidayah <br />
+            binti Khatib Zur
           </h1>
         </div>
 
@@ -175,11 +182,18 @@ END:VCALENDAR`;
             className="font-serif text-xl mb-4 text-center"
           >
             pada <br />
-            <span className="font-bold">{weddingInfo.date.datefull}</span>{" "}
+            <span className="font-bold">
+              31 Mei 2025 (Sabtu) <br />
+              bersamaan 4 Zulhijjah 1146H
+            </span>{" "}
             <br />
             bertempat di
             <br />
-            <span className="font-bold">{weddingInfo.venue.fullAddress}</span>
+            <span className="font-bold">
+              Dewan Serbaguna Feldajaya Utara,
+              <br />
+              Trolak, Perak
+            </span>
           </p>
         </motion.div>
 
@@ -208,7 +222,7 @@ END:VCALENDAR`;
             style={{ color: themeColors.text.third }}
             className="font-serif text-xl m-4 text-center font-bold"
           >
-            Ketibaan pengantin
+            Ketibaan Pengantin
             <br />
             <span className="font-normal">12.00 tengah hari</span>
           </p>
@@ -235,50 +249,13 @@ END:VCALENDAR`;
             style={{ color: themeColors.text.third }}
             className="font-serif text-xl m-4 text-center font-bold"
           >
-            {weddingInfo.contact.contact1.name} :{" "}
-            {weddingInfo.contact.contact1.number}
+            Aman: 010-403 <span className="tracking-wider">8185</span>
             <br />
-            {weddingInfo.contact.contact2.name} :{" "}
-            {weddingInfo.contact.contact2.number}
+            Shahida: 019-327 <span className="tracking-wider">5524</span>
             <br />
-            {weddingInfo.contact.contact3.name} :{" "}
-            {weddingInfo.contact.contact3.number}
+            Fikri: 013-258 <span className="tracking-wider">2717</span>
           </p>
         </motion.div>
-        {/* <div
-          className="flex flex-col sm:flex-row gap-4 justify-center mt-8 relative"
-          style={{ zIndex: 20 }}
-        >
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
-            viewport={{ once: true }}
-            onClick={handleAddToCalendar}
-            style={{
-              backgroundColor: themeColors.primary,
-              position: "relative",
-            }}
-            className="text-white px-8 py-3 rounded-full font-serif hover:bg-[#40916C] transition-colors"
-          >
-            Simpan Tarikh
-          </motion.button>
-
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
-            viewport={{ once: true }}
-            onClick={handleRSVP}
-            style={{
-              backgroundColor: themeColors.primary,
-              position: "relative",
-            }}
-            className="text-white px-8 py-3 rounded-full font-serif hover:bg-[#40916C] transition-colors"
-          >
-            RSVP
-          </motion.button>
-        </div> */}
 
         {/* Flower decorations container - positioned absolutely */}
         <div
@@ -316,6 +293,39 @@ END:VCALENDAR`;
           </div>
         </div>
       </motion.div>
+
+      <div
+        className="flex flex-col sm:flex-row gap-4 justify-center mt-8 relative"
+        style={{ zIndex: 20 }}
+      >
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.5 }}
+          viewport={{ once: true }}
+          onClick={handleAddToCalendar}
+          style={{
+            position: "relative",
+          }}
+          className="text-white font-bold px-8 py-3 rounded-full font-serif flex bg-yellow-400 hover:bg-yellow-500 transition-colors"
+        >
+          Simpan Tarikh
+        </motion.button>
+
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.5 }}
+          viewport={{ once: true }}
+          onClick={handleRSVP}
+          style={{
+            position: "relative",
+          }}
+          className="text-white font-bold px-8 py-3 rounded-full font-serif flex bg-yellow-400 hover:bg-yellow-500 transition-colors"
+        >
+          RSVP
+        </motion.button>
+      </div>
     </div>
   );
 };

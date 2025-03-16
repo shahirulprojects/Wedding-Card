@@ -68,7 +68,7 @@ export const SpeechSection = () => {
   return (
     <div
       id="speeches-section"
-      className="mb-10 min-h-screen flex w-full items-center justify-center py-20 px-4 relative overflow-hidden"
+      className="mb-10 flex w-full items-center justify-center py-20 px-4 relative overflow-hidden"
     >
       {/* Islamic pattern backgrounds - positioned at back with z-index */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
@@ -78,7 +78,10 @@ export const SpeechSection = () => {
         {/* No gradient overlay */}
       </div>
 
-      <div className="max-w-4xl w-full relative" style={{ zIndex: 10 }}>
+      <div
+        className="max-w-4xl w-full relative items-center justify-center flex flex-col"
+        style={{ zIndex: 10 }}
+      >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -88,7 +91,7 @@ export const SpeechSection = () => {
           style={{ zIndex: 10 }}
         >
           {/* Flower Speech Decoration */}
-          <div
+          {/* <div
             className="items-center justify-center flex -top-24 w-full h-40 -m-10 ml-1 relative"
             style={{ zIndex: 10 }}
           >
@@ -99,7 +102,7 @@ export const SpeechSection = () => {
               height={100}
               className="opacity-90"
             />
-          </div>
+          </div> */}
 
           <h2
             style={{ color: themeColors.text.primary, opacity: 1 }}
@@ -229,11 +232,10 @@ export const SpeechSection = () => {
           viewport={{ once: true }}
           onClick={handleWriteSpeech}
           style={{
-            backgroundColor: themeColors.primary,
             position: "relative",
             zIndex: 20,
           }}
-          className="mt-8 mx-auto block text-white px-8 py-3 rounded-full font-serif hover:bg-[#40916C] transition-colors"
+          className="text-white font-bold px-8 py-3 rounded-full font-serif flex bg-yellow-400 hover:bg-yellow-500 transition-colors"
         >
           Tulis Ucapan
         </motion.button>

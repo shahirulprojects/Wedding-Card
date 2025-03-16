@@ -82,18 +82,24 @@ const LandingSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
-            className="flex flex-col py-4"
+            className="flex flex-col py-4 space-y-0"
           >
             <p
               style={{ color: themeColors.text.fourth }}
-              className="text-lg font-extrabold"
+              className="text-lg font-extrabold mb-0 leading-tight"
             >
               {weddingInfo.date.date}
             </p>
-            <p style={{ color: themeColors.text.fourth }} className="text-lg">
+            <p
+              style={{ color: themeColors.text.fourth }}
+              className="text-lg mb-0 leading-tight"
+            >
               {weddingInfo.venue.name}
             </p>
-            <p style={{ color: themeColors.text.fourth }} className="text-lg">
+            <p
+              style={{ color: themeColors.text.fourth }}
+              className="text-lg mb-0 leading-tight"
+            >
               {weddingInfo.venue.address.line1}
             </p>
           </motion.div>
