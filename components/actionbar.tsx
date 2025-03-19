@@ -350,27 +350,26 @@ const Actionbar = () => {
                 style={{
                   backgroundColor: themeColors.container,
                   borderColor: themeColors.actionBar.border,
-                  width: isSpeechContent(item.content[0]) ? "380px" : undefined,
                 }}
-                className="mb-[30px] rounded-2xl shadow-xl border-2"
+                className="mb-[30px] rounded-2xl shadow-xl border-2 w-screen h-screen items-center justify-center flex flex-col p-8"
               >
                 <h1
                   style={{ color: themeColors.text.primary }}
-                  className="text-center font-script text-2xl mb-6"
+                  className="text-center font-script text-4xl mb-12"
                 >
                   {item.label}
                 </h1>
                 {item.content.map((contentItem, contentIndex) => (
-                  <div key={contentIndex}>
+                  <div key={contentIndex} className="w-full max-w-2xl">
                     {/* Contact and Location content */}
                     {!isRSVPContent(contentItem) &&
                       !isSpeechContent(contentItem) && (
-                        <div className="mb-4 flex items-center justify-between gap-4 p-2 rounded-lg hover:bg-white/50 transition-colors">
-                          <div className="flex flex-col mb-2">
+                        <div className="mb-8 flex items-center justify-between gap-6 p-4 rounded-lg hover:bg-white/50 transition-colors">
+                          <div className="flex flex-col mb-4">
                             <div
                               className={`${
                                 "googleMapsLink" in contentItem
-                                  ? "flex items-center gap-2"
+                                  ? "flex items-center gap-4"
                                   : "flex flex-col"
                               }`}
                             >
@@ -382,13 +381,13 @@ const Actionbar = () => {
                                   className="flex-shrink-0 hover:scale-110 transition-transform"
                                 >
                                   {copySuccess ? (
-                                    <CircleCheck className="text-green-500" />
+                                    <CircleCheck className="text-green-500 w-6 h-6" />
                                   ) : (
                                     <Image
                                       src="/icons/copy.svg"
                                       alt="copy"
-                                      width={20}
-                                      height={20}
+                                      width={24}
+                                      height={24}
                                     />
                                   )}
                                 </button>
@@ -398,7 +397,7 @@ const Actionbar = () => {
                                   <p
                                     key={i}
                                     style={{ color: themeColors.text.primary }}
-                                    className="font-medium"
+                                    className="font-medium text-lg"
                                   >
                                     {line}
                                   </p>
@@ -408,7 +407,7 @@ const Actionbar = () => {
                             {"title" in contentItem && contentItem.title && (
                               <p
                                 style={{ color: themeColors.text.secondary }}
-                                className="text-sm italic"
+                                className="text-base italic mt-2"
                               >
                                 {contentItem.title}
                               </p>
@@ -417,7 +416,7 @@ const Actionbar = () => {
 
                           {/* Contact links */}
                           {hasContactLinks(contentItem) && (
-                            <div className="flex gap-2">
+                            <div className="flex gap-4">
                               {"whatsappLink" in contentItem &&
                                 contentItem.whatsappLink && (
                                   <a
@@ -429,8 +428,8 @@ const Actionbar = () => {
                                     <Image
                                       src="/icons/whatsapp.svg"
                                       alt="WhatsApp"
-                                      width={30}
-                                      height={30}
+                                      width={40}
+                                      height={40}
                                     />
                                   </a>
                                 )}
@@ -443,8 +442,8 @@ const Actionbar = () => {
                                     <Image
                                       src="/icons/call.svg"
                                       alt="Call"
-                                      width={30}
-                                      height={30}
+                                      width={40}
+                                      height={40}
                                     />
                                   </a>
                                 )}
@@ -453,7 +452,7 @@ const Actionbar = () => {
 
                           {/* Location links */}
                           {hasLocationLinks(contentItem) && (
-                            <div className="flex gap-4">
+                            <div className="flex gap-6">
                               {"googleMapsLink" in contentItem &&
                                 contentItem.googleMapsLink && (
                                   <a
@@ -465,8 +464,8 @@ const Actionbar = () => {
                                     <Image
                                       src="/icons/googlemaps.svg"
                                       alt="Google Maps"
-                                      width={70}
-                                      height={70}
+                                      width={90}
+                                      height={90}
                                     />
                                   </a>
                                 )}
@@ -481,8 +480,8 @@ const Actionbar = () => {
                                     <Image
                                       src="/icons/waze.svg"
                                       alt="Waze"
-                                      width={70}
-                                      height={70}
+                                      width={90}
+                                      height={90}
                                     />
                                   </a>
                                 )}
@@ -493,21 +492,21 @@ const Actionbar = () => {
 
                     {/* RSVP content */}
                     {isRSVPContent(contentItem) && (
-                      <div className="flex flex-col gap-4">
+                      <div className="flex flex-col gap-6">
                         {!showRSVPForm && !showRSVPNoConfirmation ? (
                           <>
                             <p
                               style={{ color: themeColors.text.secondary }}
-                              className="text-center mb-2"
+                              className="text-center text-xl mb-6"
                             >
                               Adakah anda dapat hadir ke{" "}
                               <br className="md:hidden" />
                               majlis perkahwinan ini?
                             </p>
-                            <div className="flex justify-center gap-4">
+                            <div className="flex justify-center gap-6">
                               <Button
                                 style={{ backgroundColor: themeColors.primary }}
-                                className="text-white hover:bg-opacity-90"
+                                className="text-white hover:bg-opacity-90 text-lg px-8 py-6"
                                 onClick={() => setShowRSVPForm(true)}
                               >
                                 Ya
@@ -518,6 +517,7 @@ const Actionbar = () => {
                                   borderColor: themeColors.primary,
                                   color: themeColors.primary,
                                 }}
+                                className="text-lg px-8 py-6"
                                 onClick={() => setShowRSVPNoConfirmation(true)}
                               >
                                 Tidak
@@ -525,32 +525,34 @@ const Actionbar = () => {
                             </div>
                           </>
                         ) : showRSVPNoConfirmation ? (
-                          <div className="flex flex-col gap-4">
-                            <div className="flex items-center gap-2">
+                          <div className="flex flex-col gap-6">
+                            <div className="flex items-center gap-3">
                               <Button
                                 type="button"
                                 variant="ghost"
                                 size="icon"
+                                className="h-10 w-10"
                                 onClick={() => setShowRSVPNoConfirmation(false)}
                               >
-                                <ArrowLeft className="h-4 w-4" />
+                                <ArrowLeft className="h-5 w-5" />
                               </Button>
                               <span
                                 style={{ color: themeColors.text.secondary }}
+                                className="text-lg"
                               >
                                 Kembali
                               </span>
                             </div>
                             <p
                               style={{ color: themeColors.text.secondary }}
-                              className="text-center mb-2"
+                              className="text-center text-xl mb-6"
                             >
                               Adakah anda pasti tidak dapat hadir ke majlis ini?
                             </p>
-                            <div className="flex justify-center gap-4">
+                            <div className="flex justify-center gap-6">
                               <Button
                                 style={{ backgroundColor: themeColors.primary }}
-                                className="text-white hover:bg-opacity-90"
+                                className="text-white hover:bg-opacity-90 text-lg px-8 py-6"
                                 onClick={handleRSVPDecline}
                               >
                                 Ya, saya pasti
@@ -561,7 +563,7 @@ const Actionbar = () => {
                                   borderColor: themeColors.primary,
                                   color: themeColors.primary,
                                 }}
-                                className="p-4"
+                                className="text-lg px-8 py-6"
                                 onClick={() => setShowRSVPNoConfirmation(false)}
                               >
                                 Tidak, saya akan <br />
@@ -572,19 +574,21 @@ const Actionbar = () => {
                         ) : (
                           <form
                             onSubmit={handleRSVPSubmit}
-                            className="flex flex-col gap-4"
+                            className="flex flex-col gap-6"
                           >
-                            <div className="flex items-center gap-2 mb-2">
+                            <div className="flex items-center gap-3">
                               <Button
                                 type="button"
                                 variant="ghost"
                                 size="icon"
+                                className="h-10 w-10"
                                 onClick={() => setShowRSVPForm(false)}
                               >
-                                <ArrowLeft className="h-4 w-4" />
+                                <ArrowLeft className="h-5 w-5" />
                               </Button>
                               <span
                                 style={{ color: themeColors.text.secondary }}
+                                className="text-lg"
                               >
                                 Kembali
                               </span>
@@ -594,14 +598,15 @@ const Actionbar = () => {
                               value={name}
                               onChange={(e) => setName(e.target.value)}
                               required
-                              className="border-2"
+                              className="border-2 text-lg h-14"
                               style={{
                                 borderColor: themeColors.actionBar.border,
                               }}
                             />
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-6">
                               <span
                                 style={{ color: themeColors.text.secondary }}
+                                className="text-lg"
                               >
                                 Jumlah tetamu:
                               </span>
@@ -609,6 +614,7 @@ const Actionbar = () => {
                                 type="button"
                                 variant="outline"
                                 size="icon"
+                                className="h-10 w-10"
                                 style={{
                                   borderColor: themeColors.actionBar.border,
                                 }}
@@ -616,32 +622,36 @@ const Actionbar = () => {
                                   setGuestCount(Math.max(1, guestCount - 1))
                                 }
                               >
-                                <Minus className="h-4 w-4" />
+                                <Minus className="h-5 w-5" />
                               </Button>
-                              <span style={{ color: themeColors.text.primary }}>
+                              <span
+                                style={{ color: themeColors.text.primary }}
+                                className="text-xl"
+                              >
                                 {guestCount}
                               </span>
                               <Button
                                 type="button"
                                 variant="outline"
                                 size="icon"
+                                className="h-10 w-10"
                                 style={{
                                   borderColor: themeColors.actionBar.border,
                                 }}
                                 onClick={() => setGuestCount(guestCount + 1)}
                               >
-                                <Plus className="h-4 w-4" />
+                                <Plus className="h-5 w-5" />
                               </Button>
                             </div>
                             <Button
                               style={{ backgroundColor: themeColors.primary }}
-                              className="text-white hover:bg-opacity-90"
+                              className="text-white hover:bg-opacity-90 text-lg h-14"
                               type="submit"
                               disabled={isSubmitting}
                             >
                               {isSubmitting ? (
                                 <div className="flex items-center gap-2">
-                                  <Loader2 className="h-4 w-4 animate-spin" />
+                                  <Loader2 className="h-5 w-5 animate-spin" />
                                   <span>Menghantar...</span>
                                 </div>
                               ) : (
@@ -657,14 +667,14 @@ const Actionbar = () => {
                     {isSpeechContent(contentItem) && (
                       <form
                         onSubmit={handleSpeechSubmit}
-                        className="flex flex-col gap-4"
+                        className="flex flex-col gap-6"
                       >
                         <Input
                           placeholder="Nama anda"
                           value={speechName}
                           onChange={(e) => setSpeechName(e.target.value)}
                           required
-                          className="border-2"
+                          className="border-2 text-lg h-14"
                           style={{ borderColor: themeColors.actionBar.border }}
                         />
                         <Textarea
@@ -672,10 +682,10 @@ const Actionbar = () => {
                           value={speech}
                           onChange={(e) => setSpeech(e.target.value)}
                           required
-                          className="min-h-[100px] max-h-[200px] border-2"
+                          className="min-h-[150px] max-h-[300px] border-2 text-lg p-4"
                           style={{ borderColor: themeColors.actionBar.border }}
                         />
-                        <div className="relative h-[38px]">
+                        <div className="relative h-[50px]">
                           <Input
                             type="file"
                             accept="image/png,image/jpeg,image/gif,image/webp"
@@ -685,7 +695,7 @@ const Actionbar = () => {
                           <Button
                             type="button"
                             variant="outline"
-                            className="w-full flex items-center gap-2 absolute inset-0"
+                            className="w-full flex items-center gap-3 h-[50px] text-lg"
                             style={{
                               borderColor: themeColors.actionBar.border,
                             }}
@@ -693,8 +703,8 @@ const Actionbar = () => {
                             <Image
                               src="/icons/upload.svg"
                               alt="upload"
-                              width={20}
-                              height={20}
+                              width={24}
+                              height={24}
                             />
                             <span className="truncate">
                               {image
@@ -705,13 +715,13 @@ const Actionbar = () => {
                         </div>
                         <Button
                           style={{ backgroundColor: themeColors.primary }}
-                          className="text-white hover:bg-opacity-90"
+                          className="text-white hover:bg-opacity-90 text-lg h-14"
                           type="submit"
                           disabled={isSubmitting}
                         >
                           {isSubmitting ? (
                             <div className="flex items-center gap-2">
-                              <Loader2 className="h-4 w-4 animate-spin" />
+                              <Loader2 className="h-5 w-5 animate-spin" />
                               <span>Menghantar...</span>
                             </div>
                           ) : (
